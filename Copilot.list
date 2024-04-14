@@ -160,3 +160,14 @@ DOMAIN-KEYWORD,azureedge
 DOMAIN-KEYWORD,microsoftcopilot
 IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
+IP-CIDR,95.100.98.80/32,no-resolve
+IP-CIDR,95.0.0.0/32,no-resolve
+IP-CIDR,95.255.255.255/32,no-resolve
+IP-CIDR,95.100.0.0/32,no-resolve
+IP-CIDR,95.101.255.255/32,no-resolve
+IP-CIDR,95.100.96.0/32,no-resolve
+IP-CIDR,95.100.111.255/32,no-resolve
+IP-CIDR,95.100.98.0/32,no-resolve
+IP-CIDR,95.100.99.255/32,no-resolve
+IP-CIDR,95.100.98.80/32,no-resolve
+IP-CIDR,198.18.0.76/32,no-resolve
