@@ -1,0 +1,29 @@
+# 内容：自定义直连列表
+
+# Antslib
+
+DOMAIN-SUFFIX,antslib.com
+DOMAIN,antslib.com
+DOMAIN-KEYWORD,antslib
+
+# Send
+DOMAIN-SUFFIX,send.cm
+DOMAIN,send.cm
+DOMAIN-KEYWORD,send
+
+# UserDrive
+DOMAIN-SUFFIX,usersdrive.com
+DOMAIN,usersdrive.com
+DOMAIN-SUFFIX,userdrive.org
+DOMAIN,userdrive.org
+DOMAIN-KEYWORD,usersdrive
+
+# UserCloud
+DOMAIN-SUFFIX,userscloud.com
+DOMAIN,userscloud.com
+DOMAIN-KEYWORD,userscloud
+
+# Helurl
+DOMAIN-SUFFIX,helurl.com
+DOMAIN,helurl.com
+DOMAIN-KEYWORD,helurl  
