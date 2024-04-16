@@ -1,5 +1,5 @@
 proxies:
-- {"name":"AU_分享日记_2","type":"vless","server":"192.9.177.204","port":443,"uuid":"a13df940-020c-465f-bc89-ee5279b5cd6a","tls":true,"servername":"14k.ylks.link","network":"ws","ws-opts":{"path":"/blue","headers":{"host":"14k.ylks.link"}}}
+  - {"name":"AU_分享日记_2","type":"vless","server":"192.9.177.204","port":443,"uuid":"a13df940-020c-465f-bc89-ee5279b5cd6a","tls":true,"servername":"14k.ylks.link","network":"ws","ws-opts":{"path":"/blue","headers":{"host":"14k.ylks.link"}}}
   - {"name":"US_分享日记_59","type":"vless","server":"14k.ylks.link","port":443,"uuid":"a13df940-020c-465f-bc89-ee5279b5cd6a","tls":true,"servername":"14k.ylks.link","network":"ws","ws-opts":{"path":"/youtube-由零開始","headers":{"host":"14k.ylks.link"}}}
   - {"name":"US_分享日记_60","type":"vless","server":"172.64.31.38","port":443,"uuid":"01ab9337-f478-4765-9534-88f009f83ddb","tls":true,"servername":"aut14.ylks.link","network":"ws","ws-opts":{"path":"/blue","headers":{"host":"aut14.ylks.link"}}}
   - {"name":"US_分享日记_61","type":"vless","server":"104.25.76.77","port":443,"uuid":"01ab9337-f478-4765-9534-88f009f83ddb","tls":true,"servername":"aut14.ylks.link","network":"ws","ws-opts":{"path":"/blue","headers":{"host":"aut14.ylks.link"}}}
