@@ -6,6 +6,16 @@ DOMAIN-SUFFIX,antslib.com
 DOMAIN,antslib.com
 DOMAIN-KEYWORD,antslib
 
+# uscence
+DOMAIN-SUFFIX,uscence.com
+DOMAIN,uscence.com
+DOMAIN-KEYWORD,uscence
+
+# uscens
+DOMAIN-SUFFIX,uscens.com
+DOMAIN,uscens.com
+DOMAIN-KEYWORD,uscens
+
 # Send
 DOMAIN-SUFFIX,send.cm
 DOMAIN,send.cm
