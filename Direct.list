@@ -1,7 +1,6 @@
 # 内容：自定义直连列表
 
 # Antslib
-
 DOMAIN-SUFFIX,antslib.com
 DOMAIN,antslib.com
 DOMAIN-KEYWORD,antslib
@@ -39,7 +38,6 @@ DOMAIN,helurl.com
 DOMAIN-KEYWORD,helurl
 
 # IPv4
-
 74.48.58.220/32,no-resolve
 142.171.198.135/32,no-resolve
 104.168.87.30/32,no-resolve
