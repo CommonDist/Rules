@@ -38,7 +38,7 @@ DOMAIN,helurl.com
 DOMAIN-KEYWORD,helurl
 
 # IPv4
-74.48.58.220/32,no-resolve
-142.171.198.135/32,no-resolve
-104.168.87.30/32,no-resolve
-104.168.87.215/32,no-resolve
+IP-CIDR,74.48.58.220/32,no-resolve
+IP-CIDR,142.171.198.135/32,no-resolve
+IP-CIDR,104.168.87.30/32,no-resolve
+IP-CIDR,104.168.87.215/32,no-resolve
