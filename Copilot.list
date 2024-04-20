@@ -41,6 +41,8 @@ DOMAIN,*.okggrss.buzz
 DOMAIN,okggrss.buzz
 DOMAIN-SUFFIX,okggrss.buzz
 DOMAIN,*.okggrss.top
+DOMAIN,rss.okggrss.top
+DOMAIN-SUFFIX,rss.okggrss.top
 DOMAIN-SUFFIX,okggrss.top
 DOMAIN-KEYWORD,okggrss
 
@@ -168,3 +170,4 @@ DOMAIN-KEYWORD,microsoftcopilot
 IP-CIDR,24.199.123.28/32,no-resolve
 IP-CIDR,64.23.132.171/32,no-resolve
 IP-CIDR,198.18.0.76/32,no-resolve
+IP-CIDR,198.18.0.41/32,no-resolve
