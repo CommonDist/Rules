@@ -33,9 +33,16 @@ DOMAIN-SUFFIX,svc.ms
 DOMAIN,anthropic.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-KEYWORD,anthropic
+DOMAIN,*.okgg.top
 DOMAIN,okgg.top
 DOMAIN-SUFFIX,okgg.top
 DOMAIN-KEYWORD,okgg
+DOMAIN,*.okggrss.buzz
+DOMAIN,okggrss.buzz
+DOMAIN-SUFFIX,okggrss.buzz
+DOMAIN,*.okggrss.top
+DOMAIN-SUFFIX,okggrss.top
+DOMAIN-KEYWORD,okggrss
 
 # Copilot
 DOMAIN,*.bing.com
