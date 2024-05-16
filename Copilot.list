@@ -33,6 +33,9 @@ DOMAIN-SUFFIX,svc.ms
 DOMAIN,anthropic.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-KEYWORD,anthropic
+DOMAIN,chatgpt.com
+DOMAIN-SUFFIX,chatgpt.com
+DOMAIN-KEYWORD,chatgpt
 
 # Copilot
 DOMAIN,*.bing.com
