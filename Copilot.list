@@ -36,6 +36,15 @@ DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-KEYWORD,chatgpt
+DOMAIN,pagead2.googlesyndication.com
+DOMAIN-SUFFIX,googlesyndication.com
+DOMAIN-KEYWORD,googlesyndication
+DOMAIN,stats.g.doubleclick.net
+DOMAIN-SUFFIX,stats.g.doubleclick.net
+DOMAIN-KEYWORD,doubleclick
+DOMAIN,static.addtoany.com
+DOMAIN-SUFFIX,static.addtoany.com
+DOMAIN-KEYWORD,addtoany
 
 # Copilot
 DOMAIN,*.bing.com
