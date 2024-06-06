@@ -45,6 +45,10 @@ DOMAIN-KEYWORD,doubleclick
 DOMAIN,static.addtoany.com
 DOMAIN-SUFFIX,static.addtoany.com
 DOMAIN-KEYWORD,addtoany
+DOMAIN,www.perplexity.ai
+DOMAIN,perplexity.ai
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-KEYWORD,perplexity
 
 # Copilot
 DOMAIN,*.bing.com
