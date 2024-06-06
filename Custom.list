@@ -20,7 +20,8 @@ DOMAIN-KEYWORD,addtoany
 DOMAIN,zipzap.ai
 DOMAIN-SUFFIX,zipzap.ai
 DOMAIN-KEYWORD,zipzap.ai
-
+DOMAIN,px.effirst.com
+DOMAIN,o4504136533147648.ingest.sentry.io
 
 # OpenAI
 DOMAIN,auth.openai.com
