@@ -40,6 +40,10 @@ DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-KEYWORD,chatgpt
+DOMAIN,cdn.oaistatic.com
+DOMAIN-SUFFIX,cdn.oaistatic.com
+DOMAIN-KEYWORD,oaistatic
+DOMAIN,chatgpt-async-webps-prod-centralus-1.chatgpt.com
 
 # Google
 DOMAIN,pagead2.googlesyndication.com
