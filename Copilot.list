@@ -11,15 +11,18 @@ DOMAIN-KEYWORD,haiwaikan.com
 DOMAIN,catdomepimyth.com
 DOMAIN-SUFFIX,catdomepimyth.com
 DOMAIN-KEYWORD,catdomepimyth.com
-DOMAIN,googletagmanager.com
-DOMAIN-SUFFIX,googletagmanager.com
-DOMAIN-KEYWORD,googletagmanager.com
 DOMAIN,v2rayssr.com
 DOMAIN-SUFFIX,v2rayssr.com
 DOMAIN-KEYWORD,v2rayssr.com
+DOMAIN,static.addtoany.com
+DOMAIN-SUFFIX,static.addtoany.com
+DOMAIN-KEYWORD,addtoany
 DOMAIN,zipzap.ai
 DOMAIN-SUFFIX,zipzap.ai
 DOMAIN-KEYWORD,zipzap.ai
+
+
+# OpenAI
 DOMAIN,auth.openai.com
 DOMAIN,auth0.openai.com
 DOMAIN-KEYWORD,openai
@@ -36,15 +39,19 @@ DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-KEYWORD,chatgpt
+
+# Google
 DOMAIN,pagead2.googlesyndication.com
 DOMAIN-SUFFIX,googlesyndication.com
 DOMAIN-KEYWORD,googlesyndication
+DOMAIN,googletagmanager.com
+DOMAIN-SUFFIX,googletagmanager.com
+DOMAIN-KEYWORD,googletagmanager.com
 DOMAIN,stats.g.doubleclick.net
 DOMAIN-SUFFIX,stats.g.doubleclick.net
 DOMAIN-KEYWORD,doubleclick
-DOMAIN,static.addtoany.com
-DOMAIN-SUFFIX,static.addtoany.com
-DOMAIN-KEYWORD,addtoany
+
+# perplexity
 DOMAIN,www.perplexity.ai
 DOMAIN,perplexity.ai
 DOMAIN-SUFFIX,perplexity.ai
