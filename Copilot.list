@@ -47,14 +47,20 @@ DOMAIN-KEYWORD,googlesyndication
 DOMAIN,googletagmanager.com
 DOMAIN-SUFFIX,googletagmanager.com
 DOMAIN-KEYWORD,googletagmanager.com
+DOMAIN,optimizationguide-pa.googleapis.com
+DOMAIN-SUFFIX,optimizationguide-pa.googleapis.com
+DOMAIN-KEYWORD,googleapis
 DOMAIN,stats.g.doubleclick.net
 DOMAIN-SUFFIX,stats.g.doubleclick.net
 DOMAIN-KEYWORD,doubleclick
 
 # perplexity
-DOMAIN,www.perplexity.ai
 DOMAIN,perplexity.ai
+DOMAIN,www.perplexity.ai
 DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,www.perplexity.ai
+DOMAIN,pplx-next-static-public.perplexity.ai
+DOMAIN-SUFFIX,pplx-next-static-public.perplexity.ai
 DOMAIN-KEYWORD,perplexity
 
 # Copilot
