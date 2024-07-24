@@ -22,6 +22,7 @@ DOMAIN-SUFFIX,zipzap.ai
 DOMAIN-KEYWORD,zipzap.ai
 DOMAIN,px.effirst.com
 DOMAIN,o4504136533147648.ingest.sentry.io
+DOMAIN,x1.c.lencr.org
 
 # OpenAI
 DOMAIN,auth.openai.com
@@ -40,6 +41,8 @@ DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN-KEYWORD,chatgpt
+DOMAIN,ab.chatgpt.com
+DOMAIN-SUFFIX,ab.chatgpt.com
 DOMAIN,cdn.oaistatic.com
 DOMAIN-SUFFIX,cdn.oaistatic.com
 DOMAIN-KEYWORD,oaistatic
