@@ -64,15 +64,6 @@ DOMAIN,stats.g.doubleclick.net
 DOMAIN-SUFFIX,stats.g.doubleclick.net
 DOMAIN-KEYWORD,doubleclick
 
-# perplexity
-DOMAIN,perplexity.ai
-DOMAIN,www.perplexity.ai
-DOMAIN-SUFFIX,perplexity.ai
-DOMAIN-SUFFIX,www.perplexity.ai
-DOMAIN,pplx-next-static-public.perplexity.ai
-DOMAIN-SUFFIX,pplx-next-static-public.perplexity.ai
-DOMAIN-KEYWORD,perplexity
-
 # Copilot
 DOMAIN,*.bing.com
 DOMAIN,account.live.com
