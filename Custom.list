@@ -40,9 +40,11 @@ DOMAIN-SUFFIX,anthropic.com
 DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
-DOMAIN-KEYWORD,chatgpt
 DOMAIN,ab.chatgpt.com
 DOMAIN-SUFFIX,ab.chatgpt.com
+DOMAIN-KEYWORD,chatgpt
+DOMAIN,oaistatic.com
+DOMAIN-SUFFIX,oaistatic.com
 DOMAIN,cdn.oaistatic.com
 DOMAIN-SUFFIX,cdn.oaistatic.com
 DOMAIN-KEYWORD,oaistatic
