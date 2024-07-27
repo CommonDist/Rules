@@ -24,6 +24,14 @@ DOMAIN,px.effirst.com
 DOMAIN,o4504136533147648.ingest.sentry.io
 DOMAIN,x1.c.lencr.org
 
+# Claude
+DOMAIN,anthropic.com
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-KEYWORD,anthropic
+DOMAIN,claude.ai
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-KEYWORD,claude
+
 # OpenAI
 DOMAIN,auth.openai.com
 DOMAIN,auth0.openai.com
@@ -35,9 +43,6 @@ DOMAIN,onedrive.live.com
 DOMAIN-SUFFIX,onedrive.live.com
 DOMAIN,svc.ms
 DOMAIN-SUFFIX,svc.ms
-DOMAIN,anthropic.com
-DOMAIN-SUFFIX,anthropic.com
-DOMAIN-KEYWORD,anthropic
 DOMAIN,chatgpt.com
 DOMAIN-SUFFIX,chatgpt.com
 DOMAIN,ab.chatgpt.com
