@@ -1,19 +1,38 @@
+# ------------------------------
+# OpenClash Meta 内核完整模板
+# ------------------------------
+
+# 核心模式
 mode: rule
+
+# 端口设置
 port: 7890
 socks-port: 7891
 redir-port: 7892
 mixed-port: 7893
 tproxy-port: 7895
+
+# 基础网络设置
 ipv6: true
 allow-lan: true
+bind-address: "*"
+
+# 性能与日志
 unified-delay: true
 tcp-concurrent: true
 log-level: warning
-bind-address: "*"
-find-process-mode: 'off'
-global-client-fingerprint: chrome
 keep-alive-interval: 15
 keep-alive-idle: 600
+global-client-fingerprint: chrome
+
+# Web UI & 控制
+external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
+external-ui-name: zashboard
+external-ui: ui
+external-controller: 0.0.0.0:9090
+secret: yyds666
+
+# 认证
 authentication:
   - mihomo:yyds666
 skip-auth-prefixes:
@@ -21,37 +40,34 @@ skip-auth-prefixes:
   - 192.168.1.0/24
   - 192.168.100.0/24
   - 127.0.0.1/8
-  
-external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-external-ui-name: zashboard
-external-ui: ui
-external-controller: 0.0.0.0:9090
-secret: yyds666
 
+# 配置存储
 profile:
   store-selected: true
   store-fake-ip: true
-  
+
+# Sniffer
 sniffer:
   enable: true
   override-destination: false
   force-dns-mapping: true
   parse-pure-ip: true
 
+# TUN / 网络路由
 tun:
   enable: true
   stack: mixed
   dns-hijack:
-    - "any:53"
-    - "tcp://any:53"
+    - any:53
+    - tcp://any:53
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
-    
+
+# DNS 配置
 dns:
   enable: true
   ipv6: true
-  enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver:
     - tls://223.5.5.5
@@ -60,15 +76,16 @@ dns:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
   fake-ip-filter:
-    - rule-set:connectivity-check
+    # 只保留系统自带 rule-set，避免报错
     - rule-set:private_domain
     - rule-set:cn_domain
+    # 自定义例外
     - +.miwifi.com
     - +.docker.io
     - +.market.xiaomi.com
     - +.push.apple.com
-    - beiyong.dynuddns.net
     - "*.lan"
+    - beiyong.dynuddns.net
     - localhost.ptlogin2.qq.com
     - +.srv.nintendo.net
     - +.stun.playstation.net
@@ -81,3 +98,14 @@ dns:
     - "*.battlenet.com"
     - "*.blzstatic.cn"
     - "*.battle.net"
+
+# ------------------------------
+# 注意事项
+# ------------------------------
+# 1. 确保内核文件存在并可执行：
+#    /etc/openclash/core/clash_meta
+#    chmod +x /etc/openclash/core/clash_meta
+# 2. 安装 kmod-tun 支持 TUN 模式：
+#    opkg install kmod-tun
+# 3. 避免使用不存在的 rule-set，例如 connectivity-check。
+# 4. 保存文件后，使用 /etc/init.d/openclash restart 启动。
