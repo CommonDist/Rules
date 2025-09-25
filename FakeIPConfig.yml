@@ -1,111 +1,107 @@
-# ------------------------------
-# OpenClash Meta 内核完整模板
-# ------------------------------
+# OpenClash 配置模板，基于 mihomo 内核，兼容性好，功能强大。
 
-# 核心模式
-mode: rule
-
-# 端口设置
-port: 7890
-socks-port: 7891
-redir-port: 7892
-mixed-port: 7893
-tproxy-port: 7895
-
-# 基础网络设置
-ipv6: true
-allow-lan: true
-bind-address: "*"
-
-# 性能与日志
-unified-delay: true
-tcp-concurrent: true
-log-level: warning
-keep-alive-interval: 15
-keep-alive-idle: 600
-global-client-fingerprint: chrome
-
-# Web UI & 控制
-external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
-external-ui-name: zashboard
-external-ui: ui
-external-controller: 0.0.0.0:9090
-secret: Ev6VY5uK2dWw
-
-# 认证
-authentication:
-  - mihomo:n8HN5vlglaib
-skip-auth-prefixes:
-  - 192.168.50.0/24
-  - 192.168.1.0/24
-  - 192.168.100.0/24
-  - 127.0.0.1/8
-
-# 配置存储
-profile:
-  store-selected: true
-  store-fake-ip: true
-
-# Sniffer
-sniffer:
-  enable: true
-  override-destination: false
-  force-dns-mapping: true
-  parse-pure-ip: true
-
-# TUN / 网络路由
-tun:
-  enable: true
-  stack: mixed
-  dns-hijack:
-    - any:53
-    - tcp://any:53
-  auto-route: true
-  auto-redirect: true
-  auto-detect-interface: true
+# 通用设置
+mixed-port: 10801 # HTTP(S) 和 SOCKS5 代理混合端口
+allow-lan: true # 允许局域网设备连接
+bind-address: "*" # 绑定所有可用地址，作用于 allow-lan
+mode: rule # 代理模式：rule (规则), direct (直连), global (全局代理)
+log-level: info # 日志等级：silent/error/warning/info/debug
+ipv6: true # 开启 IPv6 支持
 
 # DNS 配置
 dns:
-  enable: true
-  ipv6: true
-  fake-ip-range: 198.18.0.1/16
+  enable: true # 启用 DNS 模块
+  listen: 0.0.0.0:53 # DNS 服务器监听地址
+  enhanced-mode: fake-ip # DNS 增强模式，推荐使用 fake-ip
+  fake-ip-range: 198.18.0.1/16 # fake-ip 地址池
   default-nameserver:
-    - tls://223.5.5.5
-    - tls://223.6.6.6
-  nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+  nameserver: # 主要 DNS 服务器，用于直连域名解析
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
-  fake-ip-filter:
-    # 只保留系统自带 rule-set，避免报错
-    - rule-set:private_domain
-    - rule-set:cn_domain
-    # 自定义例外
-    - +.miwifi.com
-    - +.docker.io
-    - +.market.xiaomi.com
-    - +.push.apple.com
-    - "*.lan"
-    - beiyong.dynuddns.net
-    - localhost.ptlogin2.qq.com
-    - +.srv.nintendo.net
-    - +.stun.playstation.net
-    - +.msftconnecttest.com
-    - +.msftncsi.com
-    - +.xboxlive.com
-    - msftconnecttest.com
-    - xbox.*.microsoft.com
-    - "*.battlenet.com.cn"
-    - "*.battlenet.com"
-    - "*.blzstatic.cn"
-    - "*.battle.net"
+  fallback: # 备用 DNS 服务器，用于被墙域名或海外域名解析
+    - tls://1.1.1.1:853
+    - https://dns.google/dns-query
+  nameserver-policy: # 针对特定域名使用指定的 DNS 服务器
+    "geosite:cn,private,apple":
+      - https://dns.alidns.com/dns-query
+    "geosite:category-ads-all": rcode://success # 屏蔽广告域名
 
-# ------------------------------
-# 注意事项
-# ------------------------------
-# 1. 确保内核文件存在并可执行：
-#    /etc/openclash/core/clash_meta
-#    chmod +x /etc/openclash/core/clash_meta
-# 2. 安装 kmod-tun 支持 TUN 模式：
-#    opkg install kmod-tun
-# 3. 避免使用不存在的 rule-set，例如 connectivity-check。
-# 4. 保存文件后，使用 /etc/init.d/openclash restart 启动。
+# 规则配置 (rules)
+# 决定流量如何分流，从上到下按顺序匹配
+rules:
+  # 广告和隐私拦截
+  - RULE-SET,geosite-ads,REJECT
+  - RULE-SET,geosite-private,DIRECT
+
+  # 国内应用和服务直连
+  - RULE-SET,geosite-cn,DIRECT
+
+  # 国外主流服务走代理
+  - RULE-SET,geosite-google,Proxy
+  - RULE-SET,geosite-youtube,Proxy
+  - RULE-SET,geosite-github,Proxy
+  - DOMAIN-SUFFIX,openai.com,Proxy
+  - DOMAIN-SUFFIX,notion.so,Proxy
+
+  # GeoIP 规则：根据 IP 归属地分流
+  - GEOIP,CN,DIRECT
+  - GEOIP,LAN,DIRECT
+  - GEOIP,NO-MATCH,Proxy
+
+# 规则集订阅 (rule-providers)
+# 自动更新规则文件，提高灵活性
+rule-providers:
+  geosite-ads:
+    输入: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-category-ads-all.yaml"
+    path: ./rule_provider/geosite-ads.yaml
+    interval: 86400 # 更新间隔，单位：秒
+  
+  geosite-private:
+    输入: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-private.yaml"
+    path: ./rule_provider/geosite-private.yaml
+    interval: 86400
+  
+  geosite-cn:
+    输入: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-cn.yaml"
+    path: ./rule_provider/geosite-cn.yaml
+    interval: 86400
+
+  geosite-google:
+    输入: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-google.yaml"
+    path: ./rule_provider/geosite-google.yaml
+    interval: 86400
+  
+  geosite-youtube:
+    输入: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-youtube.yaml"
+    path: ./rule_provider/geosite-youtube.yaml
+    interval: 86400
+  
+  geosite-github:
+    type: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite-github.yaml"
+    path: ./rule_provider/geosite-github.yaml
+    interval: 86400
+
+# Geo 数据文件 URL (geox-url)
+geox-url:
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
+geo-auto-update: true
+geo-update-interval: 24
+
+# RESTful API 控制器
+external-controller: 0.0.0.0:9093
