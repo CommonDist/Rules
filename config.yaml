@@ -48,9 +48,6 @@ geo-update-interval: 24 # 更新间隔，单位：小时
 
 dns:
   enable: true
-  dns-hijack:
-    - tcp://any:53
-    - udp://any:53
   listen: 0.0.0.0:7874 # 保持您原有的监听端口
   ipv6: false # 除非您的网络环境完美支持IPv6，否则建议关闭以增加稳定性
   enhanced-mode: fake-ip
@@ -94,10 +91,10 @@ tun:
   dns-hijack:
   - 127.0.0.1:53
   endpoint-independent-nat: true
-  auto-route: false
-  auto-detect-interface: false
+  auto-route: true
+  auto-detect-interface: true
   auto-redirect: false
-  strict-route: false
+  strict-route: true
 
 sniffer:
   enable: true
@@ -165,20 +162,20 @@ proxy-groups:
 
   - name: "🚀 PROXY"
     type: select
-    proxies: ["⚖️ 负载均衡", "♻️ 自动选择", "⛑️ 故障转移", "🇺🇸 美国节点", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🌍 其他地区", DIRECT]
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🇺🇸 美国节点", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🌍 其他地区", DIRECT]
 
   # --- 功能性分组 ---
 
-  - name: "⚖️ 负载均衡"
-    type: load-balance
+#  - name: "⚖️ 负载均衡"
+#    type: load-balance
     # 策略: 确保同一域名始终命中同一节点，以维持会话稳定
-    strategy: consistent-hashing
+#    strategy: consistent-hashing
     # 健康检查，用于剔除不可用的节点
-    url: https://www.gstatic.com/generate_204
-    interval: 300
+#    url: https://www.gstatic.com/generate_204
+#    interval: 300
     # 使用订阅中的所有节点进行负载均衡
-    use: [main-subscription]
-    filter: "(?i)US|United States|美国|美" # 只在美国节点间进行负载均衡
+#    use: [main-subscription]
+#    filter: "(?i)US|United States|美国|美" # 只在美国节点间进行负载均衡
 
   - name: "♻️ 自动选择"
     type: url-test
@@ -233,7 +230,7 @@ proxy-groups:
   # --- 业务分流组 ---
 
   - name: Block
-    type: select
+    输入: select
     proxies: [REJECT, DIRECT]
   - name: AI
     输入: select
@@ -242,23 +239,23 @@ proxy-groups:
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: GitHub
-    输入: select
+    type: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: Apple
-    type: select
+    输入: select
     proxies: [DIRECT, "🚀 PROXY"]
   - name: Microsoft
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: Games
-    输入: select
+    type: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: 国外
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: 国内
     输入: select
-    proxies: [DIRECT, "🚀 PROXY"]
+    proxies: [DIRECT， "🚀 PROXY"]
   - name: 其他
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
