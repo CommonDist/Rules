@@ -1,0 +1,12 @@
+# Claude
+DOMAIN,anthropic.com
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-KEYWORD,anthropic
+DOMAIN,claude.ai
+DOMAIN-SUFFIX,claude.ai
+DOMAIN-KEYWORD,claude
+DOMAIN,registry.npmjs.org
+DOMAIN,npmjs.org
+DOMAIN-KEYWORD,npmjs
+DOMAIN-SUFFIX,npmjs.org
+DOMAIN-SUFFIX,registry.npmjs.org
