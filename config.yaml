@@ -48,6 +48,9 @@ geo-update-interval: 24 # 更新间隔，单位：小时
 
 dns:
   enable: true
+  dns-hijack:
+    - tcp://any:53
+    - udp://any:53
   listen: 0.0.0.0:7874 # 保持您原有的监听端口
   ipv6: false # 除非您的网络环境完美支持IPv6，否则建议关闭以增加稳定性
   enhanced-mode: fake-ip
@@ -162,7 +165,7 @@ proxy-groups:
 
   - name: "🚀 PROXY"
     type: select
-    proxies: ["⚖️ 负载均衡", "♻️ 自动选择", "⛑️ 故障转移", "🇺🇸 美国节点", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🌍 其他地区", DIRECT]
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "⚖️ 负载均衡", "🇺🇸 美国节点", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🌍 其他地区", DIRECT]
 
   # --- 功能性分组 ---
 
@@ -230,16 +233,19 @@ proxy-groups:
   # --- 业务分流组 ---
 
   - name: Block
-    输入: select
+    type: select
     proxies: [REJECT, DIRECT]
   - name: AI
     输入: select
-    proxies: ["🚀 PROXY", DIRECT]
+    proxies: ["🇺🇸 美国节点", "🚀 PROXY", DIRECT]
+  - name: Youtube
+    输入: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
   - name: "📺 Streaming"
     输入: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
   - name: GitHub
-    type: select
+    输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: Apple
     输入: select
@@ -248,14 +254,14 @@ proxy-groups:
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: Games
-    type: select
+    输入: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
   - name: 国外
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: 国内
-    输入: select
-    proxies: [DIRECT， "🚀 PROXY"]
+    type: select
+    proxies: [DIRECT, "🚀 PROXY"]
   - name: 其他
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
@@ -276,6 +282,7 @@ rules:
   # 3. 精细化分流 (高优先级)
   - RULE-SET,AI,AI
   - RULE-SET,Google,国外
+  - RULE-SET,Youtube,Youtube
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Microsoft,Microsoft
   # 4. 聚合规则分流（流媒体 & 游戏）
@@ -297,6 +304,7 @@ rule-providers:
 
   # --- PROXY/ 精细化规则 (按需引用) ---
   Google: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Google.list"}
+  Youtube: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Global-Services/YouTube.list"}
   GitHub: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Github.list"}
   Microsoft: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Microsoft.list"}
   GlobalMedia: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/GlobalMedia.list"}
