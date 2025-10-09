@@ -1,6 +1,6 @@
 # ==============================================================
 #
-#   Mihomo 高级订阅转换模板 (最终修正版 - CommonDist 精细模式)
+#   Mihomo 高级订阅转换模板 (最终修正版 V2 - CommonDist 精细模式)
 #
 #   规则源: CommonDist/NewRules (已采用子目录精细规则)
 #   说明:
@@ -9,11 +9,6 @@
 #     - 这是实现复杂分流策略的最终、最正确版本。
 #
 # ==============================================================
-
-# proxies 列表: 用于定义内置或手动的节点，解决 "proxy [直连] not found" 错误
-proxies:
-  - {name: 直连, type: direct}
-  - {name: 拒绝, type: reject}
 
 # 基础配置
 port: 7890
@@ -139,6 +134,16 @@ authentication:
 profile:
   store-selected: true
   store-fake-ip: true
+  bootstrap-dns:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 1.1.1.1
+    - 8.8.8.8
+
+# proxies 列表: 用于定义内置或手动的节点，解决 "proxy [直连] not found" 错误
+proxies:
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
 
 # 模板占位符
 proxy-providers:
@@ -228,7 +233,7 @@ proxy-groups:
   # --- 业务分流组 ---
 
   - name: Block
-    输入: select
+    type: select
     proxies: [REJECT, DIRECT]
   - name: AI
     输入: select
@@ -240,8 +245,8 @@ proxy-groups:
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
   - name: Apple
-    输入: select
-    proxies: [DIRECT， "🚀 PROXY"]
+    type: select
+    proxies: [DIRECT, "🚀 PROXY"]
   - name: Microsoft
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
@@ -253,7 +258,7 @@ proxy-groups:
     proxies: ["🚀 PROXY", DIRECT]
   - name: 国内
     输入: select
-    proxies: [DIRECT， "🚀 PROXY"]
+    proxies: [DIRECT, "🚀 PROXY"]
   - name: 其他
     输入: select
     proxies: ["🚀 PROXY", DIRECT]
@@ -261,6 +266,7 @@ proxy-groups:
 # 规则引擎 & 规则集
 rule-anchor:
   common: &common {type: http, interval: 86400, behavior: classical, format: text}
+  ip_common: &ip_common {type: http, interval: 86400, behavior: ipcidr, format: text}
 
 rules:
   # 1. 广告拦截
@@ -294,7 +300,7 @@ rule-providers:
 
   # --- PROXY/ 精细化规则 (按需引用) ---
   Google: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Google.list"}
-  Github: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Github.list"}
+  GitHub: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Github.list"}
   Microsoft: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Microsoft.list"}
   GlobalMedia: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/GlobalMedia.list"}
   Game: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Game.list"}
@@ -303,7 +309,7 @@ rule-providers:
   PROXY: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY.list"}
   Domestic: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Domestic.list"}
   CN-IP: {<<: *ip_common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
-  LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Special/LAN.list"}
+  LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/refs/heads/master/Special/Local-LAN.list"}
 
   # --- 补充规则 (来自外部源) ---
   AI: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/AI.list"}
