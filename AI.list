@@ -5,6 +5,8 @@ DOMAIN-KEYWORD,anthropic
 DOMAIN,claude.ai
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-KEYWORD,claude
+DOMAIN,claudeusercontent.com
+DOMAIN-KEYWORD,claudeusercontent
 
 ## > OpenAI
 DOMAIN-KEYWORD,openai
