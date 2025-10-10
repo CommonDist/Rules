@@ -10,16 +10,27 @@
 #
 # ==============================================================
 
+# 节点订阅 / 模板占位符
+proxy-providers:
+  main-subscription:
+    type: http
+    url: "URL_PLACEHOLDER"
+    interval: 86400 # 24小时更新一次
+    path: ./proxies/main.yaml
+    health-check:
+      enable: true
+      interval: 600 # 10分钟检查一次
+      url: https://www.gstatic.com/generate_204
+
 # 基础配置
 port: 7890
 socks-port: 7891
 redir-port: 7892
 mixed-port: 7893
 tproxy-port: 7895
+allow-lan: true
 bind-address: "*"
 ipv6: true
-
-allow-lan: true
 mode: rule
 log-level: warning
 
@@ -32,6 +43,15 @@ external-ui-name: metacubexd
 keep-alive-interval: 15
 keep-alive-idle: 600
 
+profile:
+  store-selected: true
+  store-fake-ip: true
+  bootstrap-dns:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 1.1.1.1
+    - 8.8.8.8
+
 geodata-mode: true
 geodata-loader: standard
 geox-url:
@@ -41,6 +61,67 @@ geox-url:
   asn: https://testingcf.jsdelivr.net/gh/xishang0128/geoip@release/GeoLite2-ASN.mmdb
 geo-auto-update: false # 是否自动更新 geodata
 geo-update-interval: 24 # 更新间隔，单位：小时
+
+# ========================
+# 嗅探
+# ========================
+
+sniffing:
+  enable: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports:
+      - 80
+      - 8080-8880
+      override-destination: true
+    QUIC:
+      ports:
+      - 443
+      - 8443
+    TLS:
+      ports:
+      - 443
+      - 8443
+  force-domain:
+  - "+.netflix.com"
+  - "+.nflxvideo.net"
+  - "+.amazonaws.com"
+  - "+.media.dssott.com"
+  - "+.v2ex.com"
+  skip-domain:
+  - "+.apple.com"
+  - "Mijia Cloud.com"
+  - dlg.io.mi.com
+  - "+.oray.com"
+  - "+.sunlogin.net"
+  - "+.push.apple.com"
+  - "+.baidu.com"
+  - "*.gvt1.com"
+  - "*.google.com"
+  - "*.gs-gstatic.com"
+  - "*.mmtls.com"
+  parse-pure-ip: true
+authentication:
+- Clash:cCwPyb83
+
+# ========================
+# TUN 入站模块
+# ========================
+
+tun:
+  enable: true
+  stack: gvisor
+  device: utun
+  #dns-hijack:
+  #  - tcp://any:53
+  #  - udp://any:53
+  endpoint-independent-nat: true
+  auto-route: true
+  auto-detect-interface: true
+  auto-redirect: false
+  strict-route: true
+
 
 # ========================
 # DNS 设置 (Fake-IP 模式)
@@ -53,20 +134,35 @@ dns:
     - udp://any:53
   listen: 0.0.0.0:7874 # 保持您原有的监听端口
   ipv6: false # 除非您的网络环境完美支持IPv6，否则建议关闭以增加稳定性
+  respect-rules: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+
+  proxy-server-nameserver:
+    - https://223.5.5.5/dns-query
+
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
 
   # 默认/国外域名解析 (使用无污染的 DoH/DoT 加密DNS)
   nameserver:
     - https://dns.google/dns-query
     - https://1.1.1.1/dns-query
     - https://dns.alidns.com/dns-query # 阿里DNS，增加并发查询的多样性
-
+    - 2606:4700:4700::1111
+    - 2001:4860:4860::8888
+    
   # 后备DNS (当上述DNS解析失败时使用)
   fallback:
     - https://dns.alidns.com/dns-query # 阿里 DoH
     - https://dns.cloudflare.com/dns-query
     - https://dns.google/dns-query
+
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
 
   # DNS 分流策略 (核心)
   # 为特定域名指定专门的 DNS 服务器
@@ -83,79 +179,10 @@ dns:
     - '*.local' # 修正写法
     - geosite:cn # 推荐保留，让所有国内域名获取真实IP，增强直连兼容性
 
-# ========================
-# TUN 模块
-# ========================
-
-tun:
-  enable: true
-  stack: gvisor
-  device: utun
-  dns-hijack:
-  - 127.0.0.1:53
-  endpoint-independent-nat: true
-  auto-route: true
-  auto-detect-interface: true
-  auto-redirect: false
-  strict-route: true
-
-sniffer:
-  enable: true
-  override-destination: true
-  sniff:
-    QUIC:
-      ports:
-      - 443
-    TLS:
-      ports:
-      - 443
-      - 8443
-    HTTP:
-      ports:
-      - 80
-      - 8080-8880
-      override-destination: true
-  force-domain:
-  - "+.netflix.com"
-  - "+.nflxvideo.net"
-  - "+.amazonaws.com"
-  - "+.media.dssott.com"
-  skip-domain:
-  - "+.apple.com"
-  - Mijia Cloud
-  - dlg.io.mi.com
-  - "+.oray.com"
-  - "+.sunlogin.net"
-  - "+.push.apple.com"
-  parse-pure-ip: true
-authentication:
-- Clash:cCwPyb83
-
-profile:
-  store-selected: true
-  store-fake-ip: true
-  bootstrap-dns:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 1.1.1.1
-    - 8.8.8.8
-
 # proxies 列表: 用于定义内置或手动的节点，解决 "proxy [直连] not found" 错误
 proxies:
   - {name: 直连, type: direct}
   - {name: 拒绝, type: reject}
-
-# 模板占位符
-proxy-providers:
-  main-subscription:
-    type: http
-    url: "URL_PLACEHOLDER"
-    interval: 86400 # 24小时更新一次
-    path: ./proxies/main.yaml
-    health-check:
-      enable: true
-      interval: 600 # 10分钟检查一次
-      url: https://www.gstatic.com/generate_204
 
 # -------------------------------------------------------
 # 策略组定义 (核心动态分组逻辑，非常强大)
@@ -185,6 +212,7 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [main-subscription]
+    
   - name: "⛑️ 故障转移"
     type: fallback
     url: https://www.gstatic.com/generate_204
@@ -228,43 +256,53 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [main-subscription]
-    filter: "(?i)^(?!.*(US|United States|美国|美||SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|香港|港|JP|Japan|日本|日)).*$"
+    filter: "(?i)^(?!.*(US|United States|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|香港|港|JP|Japan|日本|日)).*$"
 
   # --- 业务分流组 ---
 
   - name: Block
     type: select
-    proxies: [REJECT, DIRECT]
+    proxies: ["拒绝", "直连"]
+
   - name: AI
-    输入: select
-    proxies: ["🇺🇸 美国节点", "🚀 PROXY", DIRECT]
+    type: select
+    proxies: ["🇺🇸 美国节点", "🚀 PROXY", "直连"]
+
   - name: Youtube
-    输入: select
+    type: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
   - name: "📺 Streaming"
-    输入: select
+    type: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
   - name: GitHub
-    输入: select
-    proxies: ["🚀 PROXY", DIRECT]
-  - name: Apple
-    输入: select
-    proxies: [DIRECT, "🚀 PROXY"]
-  - name: Microsoft
-    输入: select
-    proxies: ["🚀 PROXY", DIRECT]
-  - name: Games
-    输入: select
+    type: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
+  - name: Apple
+    type: select
+    proxies: ["直连", "🚀 PROXY"]
+
+  - name: Microsoft
+    type: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
+  - name: Games
+    type: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
   - name: 国外
-    输入: select
-    proxies: ["🚀 PROXY", DIRECT]
+    type: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
+
   - name: 国内
     type: select
-    proxies: [DIRECT, "🚀 PROXY"]
+    proxies: ["直连", "🚀 PROXY"]
+
   - name: 其他
-    输入: select
-    proxies: ["🚀 PROXY", DIRECT]
+    type: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
 
 # 规则引擎 & 规则集
 rule-anchor:
@@ -275,25 +313,32 @@ rules:
   # 1. 广告拦截
   - RULE-SET,AdBlock,Block
   - RULE-SET,App-Activation,Block
+
   # 2. 本地 & 直连
   - RULE-SET,LAN,直连
-  - RULE-SET,Domestic,国内
-  - RULE-SET,CN-IP,国内,no-resolve
+
   # 3. 精细化分流 (高优先级)
   - RULE-SET,AI,AI
   - RULE-SET,Google,国外
   - RULE-SET,Youtube,Youtube
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Microsoft,Microsoft
-  # 4. 聚合规则分流（流媒体 & 游戏）
   - RULE-SET,GlobalMedia,📺 Streaming
   - RULE-SET,Game,Games
+
   # 5. 通用代理后备规则 (包罗万象)
   - RULE-SET,PROXY,国外
-  # 6. GEOIP 作为补充
+
+  # 6. 国内规则 (在 PROXY 之后，作为补充)
+  - RULE-SET,Domestic,国内
+  - RULE-SET,CN-IP,国内,no-resolve
+  - RULE-SET,SpeedTest,直连
+
+  # 7. GEOIP 作为补充
   - GEOIP,LAN,直连
   - GEOIP,CN,国内
-  # 7. 最终匹配
+
+  # 8. 最终匹配
   - MATCH,其他
 
 rule-providers:
@@ -301,6 +346,8 @@ rule-providers:
   AdBlock: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Adblock/Adblock.list"}
   #App-Activation
   App-Activation: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Special/App-Activation.list"}
+  # 本地 & 直连
+  LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Special/Local-LAN.list"}
 
   # --- PROXY/ 精细化规则 (按需引用) ---
   Google: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Google.list"}
@@ -310,11 +357,11 @@ rule-providers:
   GlobalMedia: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/GlobalMedia.list"}
   Game: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Game.list"}
 
+  # --- 补充规则 (来自外部源) ---
+  AI: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/AI.list"}
+
   # --- 根目录核心规则 ---
   PROXY: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY.list"}
   Domestic: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Domestic.list"}
-  CN-IP: {<<: *ip_common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
-  LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/refs/heads/master/Special/Local-LAN.list"}
-
-  # --- 补充规则 (来自外部源) ---
-  AI: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/AI.list"}
+  CN-IP: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
+  SpeedTest: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/SpeedTest.list"}
