@@ -77,19 +77,19 @@ dns:
   nameserver-policy:
     # 国内域名分流
     'geosite:cn':
-      - https://doh.pub/dns-query         # 腾讯 DoH，国内优化
       - https://dns.alidns.com/dns-query  # 阿里 DoH，高速稳定
+      - https://doh.pub/dns-query         # 腾讯 DoH，国内优化
 
       # DoT (DNS over TLS) 
-      - tls://dot.pub:853                 # 腾讯 DoH
       - tls://223.5.5.5:853               # 阿里 DoT IPv4，备用明文阻断 ISP 劫持
       - tls://223.6.6.6:853               # 阿里 DoT 备用
+      - tls://dot.pub:853                 # 腾讯 DoH
 
     # 国外域名分流（显式声明，提升配置清晰度，可扩展）
     'geosite:geolocation-!cn':
       - https://doh.opendns.com/dns-query    # OpenDNS DoH
-      - https://cloudflare-dns.com/dns-query # Cloudflare DoH
       - https://dns.google/dns-query         # Google DoH
+      - https://cloudflare-dns.com/dns-query # Cloudflare DoH
       - https://dns.quad9.net/dns-query      # Quad9 DoH，安全容错
 
   # Fake-IP 过滤器，避免局域网、保留地址被 fake-ip 解析
@@ -142,9 +142,9 @@ profile:
   store-selected: true
   store-fake-ip: true
   bootstrap-dns:
-    - 119.229.29.29     # 腾讯DNS，~10ms (国内最快，保证基础可用性)
+    - 223.5.5.5         # 阿里DNS，~13ms (国内备用，增加容错)
     - 208.67.222.222    # OpenDNS，~14ms (国际最快，性能卓越)
-    - 223.5.5.5         # 阿里DNS，~15ms (国内备用，增加容错)
+    - 119.229.29.29     # 腾讯DNS，~10ms (国内最快，保证基础可用性)
     - 8.8.8.8           # Google，~41ms (国际备用，高可靠性)
     - 9.9.9.9           # Quad9，可达，备用
     - 208.67.220.220    # OpenDNS 备用，增加多样性
@@ -386,4 +386,3 @@ rule-providers:
   Domestic: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Domestic.list"}
   CN-IP: {<<: *ip_common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
   LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/refs/heads/master/Special/Local-LAN.list"}
-
