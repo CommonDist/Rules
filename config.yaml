@@ -347,8 +347,8 @@ x-common-domain-provider: &common
   type: http
   # 行为模式：将列表内容视为域名
   behavior: domain
-  # 更新间隔：24 小时
-  interval: 86400
+  # 更新间隔：3 小时
+  interval: 10800
 
 # 通用模板 2：用于处理“IP地址段”列表
 x-common-ip-provider: &ip_common
@@ -386,3 +386,4 @@ rule-providers:
   Domestic: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Domestic.list"}
   CN-IP: {<<: *ip_common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
   LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/refs/heads/master/Special/Local-LAN.list"}
+
