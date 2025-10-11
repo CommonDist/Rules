@@ -254,7 +254,7 @@ proxy-groups:
 
   - name: GitHub
     type: select
-    proxies: ["直连", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY"]
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", "直连"]
 
   - name: Apple
     type: select
@@ -281,7 +281,7 @@ proxy-groups:
     proxies: ["直连", "🚀 PROXY"]
 
   - name: 其他
-    输入: select
+    type: select
     proxies: ["🚀 PROXY", "直连"]
 
 # 规则引擎 & 规则集
