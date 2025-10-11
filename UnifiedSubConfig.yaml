@@ -226,14 +226,14 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [Main-subscription]
-    filter: "(?i)US|United States|美国|美"
+    filter: "(?i)US|United States|UnitedStates|美国|美"
 
   - name: "🇺🇸 美国节点-B"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [Subscription-B]
-    filter: "(?i)US|United States|美国|美"
+    filter: "(?i)US|United States|UnitedStates|美国|美"
 
   - name: "🇸🇬 新加坡节点"
     type: url-test
@@ -254,7 +254,7 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [Subscription-B]
-    filter: "(?i)HK|Hong Kong|香港|港"
+    filter: "(?i)HK|HongKong|Hong Kong|香港|港"
 
   - name: "🇯🇵 日本节点"
     type: url-test
@@ -268,7 +268,7 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 300
     use: [Subscription-B]
-    filter: "(?i)^(?!.*(US|United States|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|香港|港|JP|Japan|日本|日)).*$"
+    filter: "(?i)^(?!.*(US|United States|UnitedStates|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|HongKong|香港|港|JP|Japan|日本|日)).*$"
 
   # --- 业务分流组 ---
 
@@ -384,7 +384,7 @@ rules:
 
 # 通用模板 1：用于处理“域名”列表
 x-common-domain-provider: &common
-  输入: http
+  type: http
   # 行为模式：将列表内容视为域名
   behavior: domain
   # 更新间隔：3 小时
@@ -392,7 +392,7 @@ x-common-domain-provider: &common
 
 # 通用模板 2：用于处理“IP地址段”列表
 x-common-ip-provider: &ip_common
-  输入: http
+  type: http
   # 行为模式：将列表内容视为 IP CIDR
   behavior: ipcidr
   # 更新间隔：24 小时 (IP段变化不频繁，也可以设为更长)
