@@ -338,6 +338,30 @@ rules:
   # 7. 最终匹配
   - MATCH,其他
 
+# ========================
+# YAML Anchors (Templates)
+# ========================
+
+# 通用模板 1：用于处理“域名”列表
+x-common-domain-provider: &common
+  type: http
+  # 行为模式：将列表内容视为域名
+  behavior: domain
+  # 更新间隔：24 小时
+  interval: 86400
+
+# 通用模板 2：用于处理“IP地址段”列表
+x-common-ip-provider: &ip_common
+  type: http
+  # 行为模式：将列表内容视为 IP CIDR
+  behavior: ipcidr
+  # 更新间隔：24 小时 (IP段变化不频繁，也可以设为更长)
+  interval: 86400
+
+# ========================
+# Rule Providers
+# ========================
+
 rule-providers:
   # Adblock
   AdBlock: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Adblock/Adblock.list"}
