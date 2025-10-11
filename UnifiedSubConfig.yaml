@@ -4,137 +4,54 @@
 #
 #   规则源: CommonDist/NewRules (已采用子目录精细规则)
 #   说明:
-#     - 引用子目录下的细分规则，实现了对不同应用类型的精确分流；
-#     - 引用包罗万象的 PROXY.list 兜底。
+#     - 本配置已完全按照 CommonDist/NewRules 的高级用法构建，
+#       通过引用子目录下的细分规则，实现了对不同应用类型的精确分流。
+#     - 这是实现复杂分流策略的最终、最正确版本。
 #
 # ==============================================================
 
-# ==============================================================
+# -------------------------------------------------------------
 #
 # 节点订阅管理器模板占位符 - 提供节点过滤、节点重命名支持
 #
-# ==============================================================
-
+# -------------------------------------------------------------
 proxy-providers:
-  # ----------------------------------------
-  # 订阅 A (Main-Sub)
-  # ----------------------------------------
-  Main-Sub-US:
+  # 主订阅
+  Main-subscription:
     type: http
-    url: "URL_FOR_SUBSCRIPTION_A" # ❗️ 替换为订阅 A 链接
-    interval: 86400
-    path: ./proxies/main_us.yaml # 修正：独立路径
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)US|U\.S\.|United States|美国|美'
+    url: "URL_FOR_SUBSCRIPTION"
+    interval: 86400 # 24小时更新一次
+    path: ./proxies/main.yaml
+    health-check:
+      enable: true
+      interval: 600 # 10分钟检查一次
+      url: https://www.gstatic.com/generate_204
     rename:
       - regex: '^(.*)$'
-        replace: '[A-US] $1'
+        replace: '[A] $1'
 
-  Main-Sub-JP:
+  # 订阅 B
+  Subscription-B:
     type: http
-    url: "URL_FOR_SUBSCRIPTION_A" # ❗️ 替换为订阅 A 链接
+    # ❗️ 请在此处替换为订阅 B 的真实链接
+    url: "URL_FOR_SUBSCRIPTION_B"
     interval: 86400
-    path: ./proxies/main_jp.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)JP|Japan|日本|日'
+    path: ./proxies/subscription_b.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: https://www.gstatic.com/generate_204
+    # 过滤器：只用于排除“垃圾信息”，不过滤任何地区
+    filter: '(?i)^(?!.*(VIP有效期|访问|恢复|节点|邮箱|修复|剩余|账号异常|请登录|用户))'
+    # 可选：为节点加上前缀 "[B]"
     rename:
       - regex: '^(.*)$'
-        replace: '[A-JP] $1'
+        replace: '[B] $1'
 
-  Main-Sub-NL:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_A"
-    interval: 86400
-    path: ./proxies/main_nl.yaml # 新的独立路径
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    # 过滤器：只筛选荷兰节点
-    filter: '(?i)NL|Netherlands|荷兰|荷'
-    # 重命名：赋予清晰的 "[A-NL]" 标签
-    rename:
-      - regex: '^(.*)$'
-        replace: '[A-NL] $1'
-
-  Main-Sub-Other:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_A"
-    interval: 86400
-    path: ./proxies/main_other.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)^(?!.*(US|美|JP|日|HK|港|SG|坡|TW|台|NL|荷兰|荷)).*$'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[A-Other] $1'
-
-  # ----------------------------------------
-  # 订阅 B (Sec-Sub)
-  # ----------------------------------------
-  Sec-Sub-US:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_us.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)US|U\.S\.|United States|美国|美'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-US] $1'
-
-  Sec-Sub-SG:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_sg.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)SG|Singapore|新加坡|坡'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-SG] $1'
-
-  Sec-Sub-TW:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_tw.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)TW|Taiwan|台湾|臺湾|台'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-TW] $1'
-
-  Sec-Sub-HK:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_hk.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)HK|Hong Kong|香港|港'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-HK] $1'
-
-  Sec-Sub-JP:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_jp.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)JP|Japan|日本|日'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-JP] $1'
-  
-  Sec-Sub-Other:
-    type: http
-    url: "URL_FOR_SUBSCRIPTION_B" # ❗️ 替换为订阅 B 链接
-    interval: 86400
-    path: ./proxies/sec_sub_other.yaml
-    health-check: {enable: true, interval: 600, url: https://www.gstatic.com/generate_204}
-    filter: '(?i)^(?!.*(VIP有效期|访问|恢复|节点|邮箱|修复|剩余|账号异常|请登录|okti@ssmail.win|用户))(?!(.*(US|美|JP|日|HK|港|SG|坡|TW|台))).*$'
-    rename:
-      - regex: '^(.*)$'
-        replace: '[B-Other] $1'
-
+# ========================
 # 基础配置
+# ========================
+
 port: 7890
 socks-port: 7891
 redir-port: 7892
@@ -265,10 +182,10 @@ profile:
 authentication:
 - Clash:cCwPyb83
 
-# proxies 列表
+# proxies 列表: 用于定义内置或手动的节点，解决 "proxy [直连] not found" 错误
 proxies:
-  - {name: DIRECT, type: direct}
-  - {name: REJECT, type: reject}
+  - {name: 直连, type: direct}
+  - {name: 拒绝, type: reject}
 
 # -------------------------------------------------------
 # 策略组定义 (核心动态分组逻辑，非常强大)
@@ -287,19 +204,20 @@ proxy-groups:
     strategy: consistent-hashing # 策略: 确保同一域名始终命中同一节点，以维持会话稳定
     url: https://www.gstatic.com/generate_204 # 健康检查，用于剔除不可用的节点
     interval: 300
-    use: [Main-Sub-US, Main-Sub-JP, Main-Sub-Other, Sec_Sub-US, Sec_Sub-SG, Sec_Sub-TW, Sec_Sub-HK]
+    use: [Main-subscription, Subscription-B] # 使用订阅中的所有节点进行负载均衡
+    filter: "(?i)US|United States|美国|美" # 只在美国节点间进行负载均衡
 
   - name: "♻️ 自动选择"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Main-Sub-US, Sec-Sub-US, Main-Sub-NL, Main-Sub-JP, Sec-Sub-JP, Main-Sub-Other, Sec-Sub-SG, Sec-Sub-TW, Sec-Sub-HK, Sec-Sub-Other]
+    use: [Main-subscription, Subscription-B]
 
   - name: "⛑️ 故障转移"
     type: fallback
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Main-Sub-US, Main-Sub-NL, Main-Sub-JP, Main-Sub-Other, Sec-Sub-US, Sec-Sub-SG, Sec-Sub-TW, Sec-Sub-HK, Sec-Sub-JP, Sec-Sub-Other]
+    use: [Main-subscription, Subscription-B]
 
   # --- 动态区域分组 ---
 
@@ -307,49 +225,56 @@ proxy-groups:
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Main-Sub-US, Main-Sub-NL]
+    use: [Main-subscription]
+    filter: "(?i)US|United States|美国|美"
 
   - name: "🇺🇸 美国节点-B"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Sec-Sub-US]
+    use: [Subscription-B]
+    filter: "(?i)US|United States|美国|美"
 
   - name: "🇸🇬 新加坡节点"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Sec_Sub-SG]
+    use: [Subscription-B]
+    filter: "(?i)SG|Singapore|新加坡|坡"
 
   - name: "🇹🇼 台湾节点"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Sec_Sub-TW]
+    use: [Subscription-B]
+    filter: "(?i)TW|Taiwan|台湾|臺湾|台"
 
   - name: "🇭🇰 香港节点"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Sec_Sub-HK]
+    use: [Subscription-B]
+    filter: "(?i)HK|Hong Kong|香港|港"
 
   - name: "🇯🇵 日本节点"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Main-Sub-JP, Sec-Sub-JP]
+    use: [Main-subscription, Subscription-B]
+    filter: "(?i)JP|Japan|日本|日"
 
   - name: "🌍 其他地区"
     type: url-test
     url: https://www.gstatic.com/generate_204
     interval: 300
-    use: [Main-Sub-Other, Sec-Sub-Other]
+    use: [Subscription-B]
+    filter: "(?i)^(?!.*(US|United States|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|香港|港|JP|Japan|日本|日)).*$"
 
   # --- 业务分流组 ---
 
   - name: Block
     type: select
-    proxies: [REJECT, DIRECT]
+    proxies: ["拒绝", DIRECT]
 
   - name: AI
     type: select
@@ -357,11 +282,11 @@ proxy-groups:
 
   - name: Google
     type: select
-    proxies: ["🇺🇸 美国节点-A", "🇺🇸 美国节点-B", "⚖️ 负载均衡", "⛑️ 故障转移", "🚀 PROXY"]
+    proxies: ["🇺🇸 美国节点-A", "🇺🇸 美国节点-B","⛑️ 故障转移", "🚀 PROXY"]
 
   - name: Youtube
     type: select
-    proxies: ["🇭🇰 香港节点", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: "📺 Streaming"
     type: select
@@ -369,7 +294,7 @@ proxy-groups:
 
   - name: GitHub
     type: select
-    proxies: ["♻️ 自动选择", "⚖️ 负载均衡", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+    proxies: ["⚖️ 负载均衡", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: Apple
     type: select
@@ -389,7 +314,7 @@ proxy-groups:
 
   - name: 国外
     type: select
-    proxies: ["🚀 PROXY", DIRECT]
+    proxies: ["⚖️ 负载均衡", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: 国内
     type: select
@@ -397,7 +322,7 @@ proxy-groups:
 
   - name: 其他
     type: select
-    proxies: ["🚀 PROXY", DIRECT]
+    proxies: ["⚖️ 负载均衡", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
 # 规则引擎 & 规则集
 rule-anchor:
@@ -425,7 +350,7 @@ rules:
   - RULE-SET,App-Activation,Block
 
   # 2. 本地 & 直连
-  - RULE-SET,LAN,直连
+  - RULE-SET,LAN,DIRECT
   - RULE-SET,Domestic,国内
   - RULE-SET,CN-IP,国内,no-resolve
   - RULE-SET,CN-IP,国内,no-resolve
@@ -446,7 +371,7 @@ rules:
   - RULE-SET,PROXY,国外
 
   # 6. GEOIP 作为补充
-  - GEOIP,LAN,直连
+  - GEOIP,LAN,DIRECT
   - GEOIP,CN,国内
   - GEOIP,CN,国内
 
