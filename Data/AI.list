@@ -1,9 +1,10 @@
 payload:
 ## > Claude
-anthropic.com
 claude.ai
 claudeusercontent.com
-claudeusercontent
+anthropic.com
+statsig.anthropic.com
+api.anthropic.com
 
 ## > OpenAI
 openai.com
