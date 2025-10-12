@@ -1,6 +1,0 @@
-# For iCloud Private Relay
-mask.apple-dns.net
-mask-h2.icloud.com
-
-# For Apple Push
-push.apple.com
