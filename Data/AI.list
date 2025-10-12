@@ -1,13 +1,12 @@
+payload:
 ## > Claude
 anthropic.com
-anthropic
 claude.ai
-claude
 claudeusercontent.com
 claudeusercontent
 
 ## > OpenAI
-openai
+openai.com
 ai.com
 auth0.com
 challenges.cloudflare.com
@@ -90,14 +89,6 @@ bingvisualsearch.com
 bingworld.com
 msftauth.net  
 bingworld.com 
-openaicom-api
-bingapis  
-edgeservices  
-msftconnecttest
-bing
-msftauth
-azureedge
-microsoftcopilot
 
 # Other
 zipzap.ai
