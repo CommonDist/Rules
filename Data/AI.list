@@ -22,8 +22,6 @@ openai.com
 sentry.io
 sora.com
 stripe.com
-
-## >> CDN & API
 openai.com.cdn.cloudflare.net
 openaiapi-site.azureedge.net
 openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
@@ -34,11 +32,6 @@ production-openaicom-storage.azureedge.net
 perplexity.ai
 www.perplexity.ai
 pplx-next-static-public.perplexity.ai
-
-## > npm
-registry.npmjs.org
-npmjs.org
-npmjs
 
 # Copilot
 *.bing.com
@@ -105,3 +98,11 @@ bing
 msftauth
 azureedge
 microsoftcopilot
+
+# Other
+zipzap.ai
+
+## > npm
+registry.npmjs.org
+npmjs.org
+npmjs
