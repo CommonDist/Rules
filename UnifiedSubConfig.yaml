@@ -90,13 +90,15 @@ geo-update-interval: 24 # 更新间隔，单位：小时
 dns:
   enable: true
   listen: 0.0.0.0:7874
-  ipv6: false                     # 关闭 IPv6 上游，避免 ISP 默认 IPv6 DNS 泄露
-  enhanced-mode: fake-ip          # fake-ip 模式，杜绝 DNS 泄露
-  fake-ip-range: 198.18.0.1/16    # fake-ip 分配范围
+  ipv6: false                      # 关闭 IPv6 上游，避免 ISP 默认 IPv6 DNS 泄露
+  enhanced-mode: fake-ip           # fake-ip 模式，杜绝 DNS 泄露
+  fake-ip-range: 198.18.0.1/16     # fake-ip 分配范围
   use-hosts: true                  # 启用 hosts 文件解析优先
 
   # 全局默认 DNS（未匹配规则域名走这里）
   nameserver:
+    - https://doh.pub/dns-query            # 腾讯 DoH，国内首选，响应快
+    - https://dns.alidns.com/dns-query     # 阿里 DoH，国内备用
     - https://doh.opendns.com/dns-query    # OpenDNS DoH
     - https://dns.google/dns-query         # Google DoH，国际解析可靠
     - https://cloudflare-dns.com/dns-query # Cloudflare DoH，国际解析高隐私
@@ -152,19 +154,33 @@ sniffer:
 
   # 强制嗅探域名（如视频、流媒体）
   force-domain:
-  - "+.netflix.com"
-  - "+.nflxvideo.net"
-  - "+.amazonaws.com"
-  - "+.media.dssott.com"
+    - "+.netflix.com"
+    - "+.nflxvideo.net"
+    - "+.amazonaws.com"
+    - "+.media.dssott.com"
 
   # 跳过嗅探的域名（局域网/特殊服务）
   skip-domain:
-  - "+.apple.com"
-  - Mijia Cloud
-  - dlg.io.mi.com
-  - "+.oray.com"
-  - "+.sunlogin.net"
-  - "+.push.apple.com"
+    - '*.lan'
+    - '*.local'
+    - '*.localhost'    
+    - Mijia Cloud
+    - dlg.io.mi.com
+    - "+.tencent.com"
+    - "+.qq.com"
+    - "+.apple.com"
+    - "+.oray.com"
+    - "+.sunlogin.net"
+    - "+.push.apple.com"
+    - "+.google.com"
+    - "+.googleapis.com"
+    - "clientservices.googleapis.com"
+    - "+.g.aaplimg.com"
+    - "mtalk.google.com"               # Google Talk, GCM/FCM 的核心服务
+    - "alt*.gvt1.com"                  # Google 更新/下载服务
+    - "dl.google.com"                  # Google 下载服务
+    - "*.dl.delivery.mp.microsoft.com" # Microsoft 更新服务
+    - "windowsupdate.com"              # Windows 更新
   parse-pure-ip: true  # 直接解析纯 IP 流量
 
 profile:
@@ -195,7 +211,7 @@ proxy-groups:
 
   - name: "🚀 PROXY"
     type: select
-    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "⚖️ 负载均衡", "🇺🇸 美国节点-A", "🇺🇸 美国节点-B", "🇸🇬 新加坡节点", "🇹🇼 台湾节点", "🇭🇰 香港节点", "🇯🇵 日本节点", "🌍 其他地区", DIRECT]
+    proxies: ["♻️ 自动选择", "⚖️ 负载均衡", "⛑️ 故障转移", "🇺🇸 美国-JMS", "🇺🇸 荷兰-JMS", "🇺🇸 美国-OKSS", "🇸🇬 新加坡", "🇹🇼 台湾", "🇭🇰 香港", "🇯🇵 日本", "🌍 其他地区"]
 
   # --- 功能性分组 ---
 
@@ -203,72 +219,86 @@ proxy-groups:
     type: load-balance
     strategy: consistent-hashing # 策略: 确保同一域名始终命中同一节点，以维持会话稳定
     url: https://www.gstatic.com/generate_204 # 健康检查，用于剔除不可用的节点
-    interval: 300
+    interval: 120
     use: [Main-subscription, Subscription-B] # 使用订阅中的所有节点进行负载均衡
-    filter: "(?i)US|United States|美国|美" # 只在美国节点间进行负载均衡
+    filter: "(?i)US|United States|UnitedStates|美国|美|NL|Netherlands|荷兰|荷|SG|Singapore|新加坡|坡HK|Hong Kong|HongKong|香港|港JP|Japan|日本|日" # 只在欧美、新加坡和香港和日本节点间进行负载均衡
 
   - name: "♻️ 自动选择"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
     use: [Main-subscription, Subscription-B]
 
   - name: "⛑️ 故障转移"
     type: fallback
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
     use: [Main-subscription, Subscription-B]
 
   # --- 动态区域分组 ---
 
-  - name: "🇺🇸 美国节点-A"
+  - name: "🇺🇸 美国-JMS"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
     use: [Main-subscription]
-    filter: "(?i)US|United States|UnitedStates|美国|美"
+    filter: "(?i)🇺🇸|\bUS\b|United States|UnitedStates|美国|美"
 
-  - name: "🇺🇸 美国节点-B"
+  - name: "🇺🇸 荷兰-JMS"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
+    use: [Main-subscription]
+    filter: "(?i)🇳🇱|NL|Netherlands|荷兰|荷"
+
+  - name: "🇺🇸 美国-OKSS"
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 120
     use: [Subscription-B]
-    filter: "(?i)US|United States|UnitedStates|美国|美"
+    filter: "(?i)🇺🇸|\bUS\b|United States|UnitedStates|美国|美"
 
-  - name: "🇸🇬 新加坡节点"
+  - name: "🇸🇬 新加坡"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
     use: [Subscription-B]
-    filter: "(?i)SG|Singapore|新加坡|坡"
+    filter: "(?i)🇸🇬|SG|Singapore|新加坡|坡"
 
-  - name: "🇹🇼 台湾节点"
+  - name: "🇭🇰 香港"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
+    use: [Subscription-B]
+    filter: "(?i)🇭🇰|HK|HongKong|Hong Kong|香港|港"
+
+  - name: "🇯🇵 日本"
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 120
+    use: [Main-subscription, Subscription-B]
+    filter: "(?i)🇯🇵|JP|Japan|日本|日"
+
+  - name: "🇷🇺 俄罗斯"
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 120
+    use: [Subscription-B]
+    filter: "(?i)🇷🇺|RU|Russia|俄罗斯|俄"
+
+  - name: "🇹🇼 台湾"
+    type: url-test
+    url: https://www.gstatic.com/generate_204
+    interval: 120
     use: [Subscription-B]
     filter: "(?i)TW|Taiwan|台湾|臺湾|台"
-
-  - name: "🇭🇰 香港节点"
-    type: url-test
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-    use: [Subscription-B]
-    filter: "(?i)HK|HongKong|Hong Kong|香港|港"
-
-  - name: "🇯🇵 日本节点"
-    type: url-test
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-    use: [Main-subscription, Subscription-B]
-    filter: "(?i)JP|Japan|日本|日"
 
   - name: "🌍 其他地区"
     type: url-test
     url: https://www.gstatic.com/generate_204
-    interval: 300
+    interval: 120
     use: [Subscription-B]
-    filter: "(?i)^(?!.*(US|United States|UnitedStates|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|HongKong|香港|港|JP|Japan|日本|日)).*$"
+    filter: "(?i)^(?!.*(US|United States|UnitedStates|美国|美|SG|Singapore|新加坡|坡|TW|Taiwan|台湾|臺湾|台|HK|Hong Kong|HongKong|香港|港|JP|Japan|日本|日NL|Netherlands|荷兰|荷)).*$"
 
   # --- 业务分流组 ---
 
@@ -276,25 +306,29 @@ proxy-groups:
     type: select
     proxies: ["拒绝", DIRECT]
 
+  - name: NTP
+    type: select
+    proxies: ["♻️ 自动选择", "🚀 PROXY"]
+
   - name: AI
     type: select
-    proxies: ["🇺🇸 美国节点-A", "⛑️ 故障转移", "🚀 PROXY"]
+    proxies: ["🇺🇸 美国-JMS", "🇺🇸 荷兰-JMS", "🇺🇸 美国-OKSS", "⛑️ 故障转移", "🚀 PROXY"]
 
   - name: Google
     type: select
-    proxies: ["🇺🇸 美国节点-A", "🇺🇸 美国节点-B","⛑️ 故障转移", "🚀 PROXY"]
+    proxies: ["🇺🇸 美国-JMS", "🇺🇸 美国-OKSS", "⛑️ 故障转移", "🚀 PROXY"]
 
   - name: Youtube
     type: select
-    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
-
-  - name: "📺 Streaming"
-    type: select
-    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+    proxies: ["🇺🇸 美国-OKSS", "🇺🇸 美国-JMS", "🇭🇰 香港", "🇸🇬 新加坡", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: GitHub
     type: select
     proxies: ["⚖️ 负载均衡", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+
+  - name: Telegram
+    type: select
+    proxies: ["♻️ 自动选择", "🇺🇸 美国-JMS"]
 
   - name: Apple
     type: select
@@ -302,13 +336,17 @@ proxy-groups:
 
   - name: Microsoft
     type: select
-    proxies: ["🚀 PROXY", DIRECT]
+    proxies: ["♻️ 自动选择", "🚀 PROXY", DIRECT]
+
+  - name: "📺 Streaming"
+    type: select
+    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: Games
     type: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
-  - name: CloudStorage
+  - name: 直连优先
     type: select
     proxies: [DIRECT, "🚀 PROXY"]
 
@@ -324,105 +362,90 @@ proxy-groups:
     type: select
     proxies: ["⚖️ 负载均衡", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
-# 规则引擎 & 规则集
-rule-anchor:
-  common: &common {type: http, interval: 86400, behavior: classical, format: text}
-  ip_common: &ip_common {type: http, interval: 86400, behavior: ipcidr, format: text}
-
 rules:
-  # ================= LAN & Reserved IPs Rules (DIRECT) =================
-  - IP-CIDR,0.0.0.0/8,DIRECT
-  - IP-CIDR,10.0.0.0/8,DIRECT
-  - IP-CIDR,100.64.0.0/10,DIRECT
-  - IP-CIDR,127.0.0.0/8,DIRECT
-  - IP-CIDR,169.254.0.0/16,DIRECT
-  - IP-CIDR,172.16.0.0/12,DIRECT
-  - IP-CIDR,192.168.0.0/16,DIRECT
-  - IP-CIDR,224.0.0.0/4,DIRECT
-  - IP-CIDR,240.0.0.0/4,DIRECT
-  - IP-CIDR6,::1/128,DIRECT
-  - IP-CIDR6,fe80::/10,DIRECT
-  - IP-CIDR6,fc00::/7,DIRECT
-  - IP-CIDR6,ff00::/8,DIRECT
+  # 1. 局域网与保留地址规则 (必须放在最前面)
+  - IP-CIDR,0.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,224.0.0.0/4,DIRECT,no-resolve
+  - IP-CIDR,240.0.0.0/4,DIRECT,no-resolve
+  - IP-CIDR6,::1/128,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fd00::/8,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  - IP-CIDR6,ff00::/8,DIRECT,no-resolve
 
-  # 1. 广告拦截
+  # NTP 服务最高优先级
+  - RULE-SET,NTP,NTP
+
+  # 2. 广告拦截
   - RULE-SET,AdBlock,Block
   - RULE-SET,App-Activation,Block
 
-  # 2. 本地 & 直连
-  - RULE-SET,LAN,DIRECT
-  - RULE-SET,Domestic,国内
-  - RULE-SET,CN-IP,国内,no-resolve
-  - RULE-SET,CN-IP,国内,no-resolve
+  # 3. 私有 & 直连
+  - RULE-SET,Private,DIRECT
+  - RULE-SET,Direct,国内
 
-  # 3. 精细化分流 (高优先级)
+  # 4. 精细化分流 (高优先级)
+  - GEOIP,CN,DIRECT # GEOIP 作为补充
+  - GEOSITE,apple-cn,DIRECT                 # 直连苹果中国区服务
   - RULE-SET,AI,AI
-  - RULE-SET,Google,国外
-  - RULE-SET,Youtube,Youtube
+  - RULE-SET,Google,Google
   - RULE-SET,GitHub,GitHub
+  - RULE-SET,Youtube,Youtube
   - RULE-SET,Microsoft,Microsoft
-  - RULE-SET,CloudStorage,CloudStorage
-  
-  # 4. 聚合规则分流（流媒体 & 游戏）
+  - RULE-SET,CustomDiect,直连优先
+  - GEOSITE,telegram,Telegram
+
+  # 5. 聚合规则分流（流媒体 & 游戏）
   - RULE-SET,GlobalMedia,📺 Streaming
   - RULE-SET,Game,Games
 
-  # 5. 通用代理后备规则 (包罗万象)
+  # 6. 通用代理后备规则 (包罗万象)
   - RULE-SET,PROXY,国外
-
-  # 6. GEOIP 作为补充
-  - GEOIP,LAN,DIRECT
-  - GEOIP,CN,国内
-  - GEOIP,CN,国内
 
   # 7. 最终匹配
   - MATCH,其他
 
-# ========================
-# YAML Anchors (Templates)
-# ========================
+# ==========================================
+# YAML Anchors (Templates) 规则引擎 & 规则集
+# ==========================================
 
-# 通用模板 1：用于处理“域名”列表
-x-common-domain-provider: &common
-  type: http
-  # 行为模式：将列表内容视为域名
-  behavior: domain
-  # 更新间隔：3 小时
-  interval: 10800
-
-# 通用模板 2：用于处理“IP地址段”列表
-x-common-ip-provider: &ip_common
-  type: http
-  # 行为模式：将列表内容视为 IP CIDR
-  behavior: ipcidr
-  # 更新间隔：24 小时 (IP段变化不频繁，也可以设为更长)
-  interval: 86400
-
-# ========================
-# Rule Providers
-# ========================
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: text}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: text}
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}
 
 rule-providers:
-  # Adblock
-  AdBlock: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Adblock/Adblock.list"}
+  # --- 私有地址规则 ---
+  Private: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt", path: "./rules/Private.yaml"}
+
+  # --- 直连规则 ---
+  Direct: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt", path: "./rules/Direct.yaml"}
+
+  # --- 广告屏蔽 ---
+  AdBlock: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt", path: "./rules/Adblock.yaml"}
+  
   #App-Activation
-  App-Activation: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Special/App-Activation.list"}
+  App-Activation: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/App-Activation.list", path: "./rules/App-Activation.yaml"}
 
   # ===========================
   # PROXY/ 精细化规则 (按需引用)
   # ===========================
-  # --- 补充规则 (来自外部源) ---
-  AI: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/AI.list"}
-  Google: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Google.list"}
-  Youtube: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Global-Services/YouTube.list"}
-  GitHub: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Github.list"}
-  Microsoft: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Microsoft.list"}
-  GlobalMedia: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/GlobalMedia.list"}
-  Game: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Game.list"}
-  CloudStorage: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/CloudStorageDiect.list"}
+  NTP: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/NTP.list", path: "./rules/NTP.yaml"}
+  AI: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/AI.list", path: "./rules/AI.yaml"}
+  Google: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/google.txt", path: "./rules/Google.yaml"}
+  GitHub: {<<: *class, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY/Github.list", path: "./rules/Github.yaml"}
+  Youtube: {<<: *class, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Global-Services/YouTube.list", path: "./rules/YouTube.yaml"}
+  Apple: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/apple.txt", path: "./rules/Apple.yaml"}
+  Microsoft: {<<: *class, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Microsoft.list", path: "./rules/Microsoft.yaml"}
+  GlobalMedia: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/gfw.txt", path: "./rules/GlobalMedia.yaml"}
+  Game: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/Game.list", path: "./rules/Game.yaml"}
+  CustomDiect: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/CustomDiect.list", path: "./rules/CustomDiect.yaml"}
 
   # --- 根目录核心规则 ---
-  PROXY: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/PROXY.list"}
-  Domestic: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Domestic.list"}
-  CN-IP: {<<: *ip_common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/CN-IP.list"}
-  LAN: {<<: *common, url: "https://raw.githubusercontent.com/CommonDist/NewRules/refs/heads/master/Special/Local-LAN.list"}
+  PROXY: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt", path: "./rules/Proxy.yaml"}
