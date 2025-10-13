@@ -8,6 +8,7 @@ www.google.com.hk
 tools.google.com
 translate.google.com
 www.googleapis.com
+oauth2.googleapis.com
 meetings.googleapis.com
 pubsub.googleapis.com
 region1.google-analytics.com
@@ -43,3 +44,5 @@ rr4---sn-3pm7dnes.googlevideo.com
 lh3.googleusercontent.com
 signaler-pa.clients6.google.com
 peoplestackwebexperiments-pa.clients6.google.com
+encrypted-tbn2.gstatic.com
+encrypted-tbn3.gstatic.com
