@@ -361,7 +361,7 @@ proxy-groups:
 
   - name: CustomProxy
     type: select
-    proxies: ["🚀 PROXY", , DIRECT]
+    proxies: ["🚀 PROXY", DIRECT]
 
   - name: 直连优先
     type: select
