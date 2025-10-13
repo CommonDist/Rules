@@ -16,6 +16,12 @@ ccgfw.top
 okti.xyz
 okgfw.top
 
+# IP 查询 & DDNS
+api.ipify.org
+api-ipv4.ip.sb
+checkip.dyndns.org
+ddns.synology.com
+
 # 其它
 stun.services.mozilla.com
 45-courier.push.apple.com
