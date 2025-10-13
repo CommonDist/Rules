@@ -98,22 +98,55 @@ dns:
       - https://cloudflare-dns.com/dns-query # Cloudflare DoH
       - https://dns.quad9.net/dns-query      # Quad9 DoH，安全容错
 
+    # -----------------------
+    # NTP / 时间服务器（强制直连域名专用解析）
+    # -----------------------
+    'time.apple.com': 
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+
+    '*.time.apple.com': 
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+
+    'time.google.com': 
+      - https://dns.google/dns-query
+      - https://dns.quad9.net/dns-query
+
+    '*.ntp.org': 
+      - https://dns.alidns.com/dns-query
+      - https://dns.google/dns-query
+
+    '*.pool.ntp.org': 
+      - https://dns.alidns.com/dns-query
+      - https://dns.google/dns-query
+
+    'time.cloudflare.com': 
+      - https://cloudflare-dns.com/dns-query
+
   # Fake-IP 过滤器，避免局域网、保留地址被 fake-ip 解析
   fake-ip-filter:
-    - '*.lan'         # 局域网域名
-    - '*.local'       # 本地网络
-    - '*.localhost'   # 本地主机
-    - '*.ntp.org'
-    - '*.time.apple.com'
-    - '*.time.google.com'
-    - '*.time.cloudflare.com'
-    - '*.pool.ntp.org'
-    - '*.miwifi.com'           # 小米路由
-    - '*.oray.com'             # 向日葵远程
+    - '*.lan'             # 局域网域名
+    - '*.local'           # 本地网络
+    - '*.localhost'       # 本地主机
+    - '*.miwifi.com'      # 小米路由
+    - '*.oray.com'        # 向日葵远程
     - '*.tplinkwifi.net'
     - '*.routerlogin.net'
     - '*.asusrouter.com'
     - '*.synology.com'
+
+    # NTP 相关服务（务必完整声明）
+    - 'time.apple.com'
+    - '*.time.apple.com'
+    - 'time.google.com'
+    - '*.time.google.com'
+    - 'time.cloudflare.com'
+    - '*.time.cloudflare.com'
+    - 'time.windows.com'
+    - '*.ntp.org'
+    - '*.pool.ntp.org'
+    - '*.openwrt.pool.ntp.org'
 
 # ========================
 # TUN 模块
@@ -167,7 +200,13 @@ sniffer:
     - "dl.google.com"                  # Google 下载服务
     - "*.dl.delivery.mp.microsoft.com" # Microsoft 更新服务
     - "windowsupdate.com"              # Windows 更新
-  parse-pure-ip: false                 # 纯 IP 流量
+    - '*.ntp.org'
+    - '*.pool.ntp.org'
+    - '*.time.apple.com'
+    - '*.time.google.com'
+    - '*.time.cloudflare.com'
+
+  parse-pure-ip: false                 # 纯 IP 流量解析
 
 profile:
   store-selected: true
@@ -280,7 +319,7 @@ proxy-groups:
 
   - name: NTP
     type: select
-    proxies: ["♻️ 自动选择", "🚀 PROXY"]
+    proxies: [DIRECT, "🚀 PROXY", "♻️ 自动选择"]
 
   - name: AI
     type: select
@@ -292,7 +331,7 @@ proxy-groups:
 
   - name: Youtube
     type: select
-    proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+    proxies: ["🇺🇸 美国", "♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
 
   - name: GitHub
     type: select
@@ -300,7 +339,7 @@ proxy-groups:
 
   - name: Telegram
     type: select
-    proxies: ["♻️ 自动选择", "🇺🇸 美国"]
+    proxies: ["🇺🇸 美国", "♻️ 自动选择"]
 
   - name: Apple
     type: select
@@ -317,6 +356,10 @@ proxy-groups:
   - name: Games
     type: select
     proxies: ["♻️ 自动选择", "⛑️ 故障转移", "🚀 PROXY", DIRECT]
+
+  - name: CustomProxy
+    type: select
+    proxies: ["🚀 PROXY", , DIRECT]
 
   - name: 直连优先
     type: select
@@ -370,6 +413,7 @@ rules:
   - RULE-SET,GitHub,GitHub
   - RULE-SET,Youtube,Youtube
   - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,CustomProxy,CustomProxy
   - RULE-SET,CustomDiect,直连优先
   - GEOSITE,telegram,Telegram
 
@@ -417,8 +461,10 @@ rule-providers:
   Microsoft: {<<: *class, url: "https://raw.githubusercontent.com/CommonDist/NewRules/master/Microsoft.list", path: "./rules/Microsoft.yaml"}
   GlobalMedia: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/gfw.txt", path: "./rules/GlobalMedia.yaml"}
   Game: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/Game.list", path: "./rules/Game.yaml"}
+
+  # --- 自定义维护列表 ---
+  CustomProxy: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/CustomProxy.list", path: "./rules/CustomProxy.yaml"}
   CustomDiect: {<<: *domain, url: "https://raw.githubusercontent.com/CommonDist/Rules/main/Data/CustomDiect.list", path: "./rules/CustomDiect.yaml"}
 
   # --- 根目录核心规则 ---
   PROXY: {<<: *domain, url: "https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt", path: "./rules/Proxy.yaml"}
-
