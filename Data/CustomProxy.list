@@ -22,6 +22,11 @@ api-ipv4.ip.sb
 checkip.dyndns.org
 ddns.synology.com
 
+# LastPass
+lastpass.com
+lp-push-server-1105.lastpass.com
+pollserver.lastpass.com
+
 # 其它
 stun.services.mozilla.com
 45-courier.push.apple.com
