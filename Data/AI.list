@@ -4,6 +4,7 @@ claudeusercontent.com
 anthropic.com
 statsig.anthropic.com
 api.anthropic.com
+a-cdn.anthropic.com
 
 ## > OpenAI
 openai.com
@@ -96,6 +97,9 @@ bingworld.com
 
 # Other
 zipzap.ai
+api.segment.io
+launchdarkly.com
+diabrowser.engineering
 
 ## > npm
 registry.npmjs.org
