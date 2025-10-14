@@ -1,218 +1,173 @@
-+.example
-localhost.*.weixin.qq.com
-+.oray.com        # 向日葵远程
-+.tplinkwifi.net
-+.routerlogin.net
-+.asusrouter.com
-+.synology.com
+payload:
+  # 局域网/特殊服务
+  - 'DOMAIN-SUFFIX,example'
+  - 'DOMAIN-REGEX,^localhost\..*\.weixin\.qq\.com$'
+  - 'DOMAIN-SUFFIX,oray.com'          # 向日葵远程
+  - 'DOMAIN-SUFFIX,tplinkwifi.net'
+  - 'DOMAIN-SUFFIX,routerlogin.net'
+  - 'DOMAIN-SUFFIX,linksys.com'
+  - 'DOMAIN-SUFFIX,linksyssmartwifi.com'
+  - 'DOMAIN-SUFFIX,heartbeat.belkin.com'
+  - 'DOMAIN-SUFFIX,pub.3gppnetwork.org' # Wifi Calling
 
-# --- 智能家居 (Smart Home / IoT) ---
-+.ecovacs.com
-+.ecovacs.cn
-+.ecovacs-global.com
+  # --- 智能家居 (Smart Home / IoT) ---
+  - 'DOMAIN-SUFFIX,asusrouter.com'
+  - 'DOMAIN-SUFFIX,synology.com'
+  - 'DOMAIN-SUFFIX,ecovacs.com'
+  - 'DOMAIN-SUFFIX,ecovacs.cn'
+  - 'DOMAIN-SUFFIX,ecovacs-global.com'
+  - 'DOMAIN-SUFFIX,mi.com'
+  - 'DOMAIN-SUFFIX,xiaomi.com'
+  - 'DOMAIN-SUFFIX,mi-ae.com'
+  - 'DOMAIN-SUFFIX,mi-img.com'
 
-# --- 游戏平台 (Gaming Platforms) ---
-## Nintendo
-+.nintendo.com
-+.nintendo.net
-+.nintendo.co.jp
-+.nintendowifi.net
-+.cdn.nintendo.net
-+.srv.nintendo.net
-+.n.n.srv.nintendo.net
+  # --- 游戏平台 (Gaming Platforms) ---
+  ## Nintendo
+  - 'DOMAIN-SUFFIX,nintendo.com'
+  - 'DOMAIN-SUFFIX,nintendo.net'
+  - 'DOMAIN-SUFFIX,nintendo.co.jp'
+  - 'DOMAIN-SUFFIX,nintendowifi.net'
+  - 'DOMAIN-SUFFIX,cdn.nintendo.net'
+  - 'DOMAIN-SUFFIX,srv.nintendo.net'
+  - 'DOMAIN-SUFFIX,n.n.srv.nintendo.net'
 
-## Blizzard
-+.blizzard.com
-+.battle.net
-+.blizzard.net
-+.blizzardcdn.com
+  ## Blizzard
+  - 'DOMAIN-SUFFIX,blizzard.com'
+  - 'DOMAIN-SUFFIX,battle.net'
+  - 'DOMAIN-SUFFIX,blizzard.net'
+  - 'DOMAIN-SUFFIX,blizzardcdn.com'
 
-## Sony PlayStation
-+.playstation.com
-+.playstation.net
-+.playstationnetwork.com
-+.sonyentertainmentnetwork.com
-+.stun.playstation.net
+  ## Sony PlayStation
+  - 'DOMAIN-SUFFIX,playstation.com'
+  - 'DOMAIN-SUFFIX,playstation.net'
+  - 'DOMAIN-SUFFIX,playstationnetwork.com'
+  - 'DOMAIN-SUFFIX,sonyentertainmentnetwork.com'
+  - 'DOMAIN-SUFFIX,stun.playstation.net'
 
-# Microsoft Xbox
-+.xbox.com
-+.xboxlive.com
-- xbox.*.microsoft.com
-+.msftauth.net
+  ## Microsoft Xbox
+  - 'DOMAIN-SUFFIX,xbox.com'
+  - 'DOMAIN-SUFFIX,xboxlive.com'
+  - 'DOMAIN-REGEX,^xbox\..*\.microsoft\.com$'
+  - 'DOMAIN-SUFFIX,msftauth.net'
 
-## Steam
-+.steampowered.com
-+.steamcommunity.com
-+.steamgames.com
-+.steamcontent.com
-+.steamstatic.com
-+.akamaihd.net
+  ## Steam
+  - 'DOMAIN-SUFFIX,steampowered.com'
+  - 'DOMAIN-SUFFIX,steamcommunity.com'
+  - 'DOMAIN-SUFFIX,steamgames.com'
+  - 'DOMAIN-SUFFIX,steamcontent.com'
+  - 'DOMAIN-SUFFIX,steamstatic.com'
+  - 'DOMAIN-SUFFIX,akamaihd.net'
 
-## EA
-+.ea.com
-+.origin.com
+  ## EA
+  - 'DOMAIN-SUFFIX,ea.com'
+  - 'DOMAIN-SUFFIX,origin.com'
 
-# Ubisoft
-+.ubisoft.com
-+.ubi.com
+  ## Ubisoft
+  - 'DOMAIN-SUFFIX,ubisoft.com'
+  - 'DOMAIN-SUFFIX,ubi.com'
 
-# Epic Games
-+.epicgames.com
-+.epicgames.dev
-# Other Games
-+.teafone.com
-+.sktswe.net
-- rtc.goodfone.co.kr
-+.chattti.com
+  ## Epic Games
+  - 'DOMAIN-SUFFIX,epicgames.com'
+  - 'DOMAIN-SUFFIX,epicgames.dev'
 
-# NTP 相关服务（务必完整声明）
-+.time.apple.com
-+.time.google.com
-+.time.cloudflare.com
-+.ntp.org
-+.pool.ntp.org
-+.openwrt.pool.ntp.org
-- time.*.com
-- time.*.gov
-- time.*.edu.cn
-- time.*.apple.com
-- time-ios.apple.com
-- time1.*.com
-- time2.*.com
-- time3.*.com
-- time4.*.com
-- time5.*.com
-- time6.*.com
-- time7.*.com
-- ntp.*.com
-- ntp1.*.com
-- ntp2.*.com
-- ntp3.*.com
-- ntp4.*.com
-- ntp5.*.com
-- ntp6.*.com
-- ntp7.*.com
-+.time.edu.cn
-+.ntp.org.cn
-- time1.cloud.tencent.com
+  ## FinalFantasy XIV
+  - 'DOMAIN-SUFFIX,square-enix.com'
+  - 'DOMAIN-SUFFIX,finalfantasyxiv.com'
+  - 'DOMAIN-SUFFIX,ffxiv.com'
+  - 'DOMAIN-SUFFIX,ff14.sdo.com'
+  - 'DOMAIN-SUFFIX,ff.dorado.sdo.com'
 
-# 其它
-+.blzstatic.cn
-+.cmpassport.com
-+.wosms.cn
-+.jegotrip.com.cn
-+.icitymobile.mobi
-+.pingan.com.cn
-+.cmbchina.com
-+.10099.com.cn
-+.microdone.cn
-id6.me
-open.e.189.cn
-opencloud.wostore.cn
-id.mail.wo.cn
-mdn.open.wo.cn
-hmrz.wo.cn
-nishub1.10010.com
-enrichgw.10010.com
+  ## UU Plugin
+  - 'DOMAIN-SUFFIX,uu.163.com'
+  - 'DOMAIN-SUFFIX,ps.res.netease.com'
 
-## 网易云音乐
-music.163.com
-+.music.163.com
-+.126.net
+  ## Other Games
+  - 'DOMAIN-SUFFIX,teafone.com'
+  - 'DOMAIN-SUFFIX,sktswe.net'
+  - 'DOMAIN-SUFFIX,rtc.goodfone.co.kr'
+  - 'DOMAIN-SUFFIX,chattti.com'
 
-## 百度音乐
-musicapi.taihe.com
-music.taihe.com
+  # --- NTP 相关服务 ---
+  - 'DOMAIN-SUFFIX,time.apple.com'
+  - 'DOMAIN-SUFFIX,time.google.com'
+  - 'DOMAIN-SUFFIX,time.cloudflare.com'
+  - 'DOMAIN-SUFFIX,ntp.org'
+  - 'DOMAIN-SUFFIX,pool.ntp.org'
+  - 'DOMAIN-SUFFIX,openwrt.pool.ntp.org'
+  - 'DOMAIN-SUFFIX,time.edu.cn'
+  - 'DOMAIN-SUFFIX,ntp.org.cn'
+  - 'DOMAIN-KEYWORD,time'
+  - 'DOMAIN-KEYWORD,ntp'
+  - 'DOMAIN-SUFFIX,aliyun.com'
+  - 'DOMAIN-SUFFIX,tencent.com'
+  - 'DOMAIN-SUFFIX,ntsc.ac.cn'
 
-## 酷狗音乐
-songsearch.kugou.com
-trackercdn.kugou.com
+  # --- 操作系统/基础服务 ---
+  ## Apple Software Update
+  - 'DOMAIN-SUFFIX,mesu.apple.com'
+  - 'DOMAIN-SUFFIX,swscan.apple.com'
+  - 'DOMAIN-SUFFIX,swquery.apple.com'
+  - 'DOMAIN-SUFFIX,swdownload.apple.com'
+  - 'DOMAIN-SUFFIX,swcdn.apple.com'
+  - 'DOMAIN-SUFFIX,swdist.apple.com'
 
-## 酷我音乐
-+.kuwo.cn
+  ## Windows 连接检测
+  - 'DOMAIN-SUFFIX,msftconnecttest.com'
+  - 'DOMAIN-SUFFIX,msftncsi.com'
 
-## JOOX音乐
-api-jooxtt.sanook.com
-api.joox.com
-joox.com
+  ## Golang
+  - 'DOMAIN-SUFFIX,proxy.golang.org'
 
-## QQ音乐
-y.qq.com
-+.y.qq.com
-streamoc.music.tc.qq.com
-mobileoc.music.tc.qq.com
-isure.stream.qqmusic.qq.com
-dl.stream.qqmusic.qq.com
-aqqmusic.tc.qq.com
-amobile.music.tc.qq.com
+  ## AdGuard
+  - 'DOMAIN-SUFFIX,local.adguard.org'
 
-## 虾米音乐
-+.xiami.com
+  # --- 国内常用服务 ---
+  ## 运营商
+  - 'DOMAIN-SUFFIX,cmpassport.com'
+  - 'DOMAIN-SUFFIX,wosms.cn'
+  - 'DOMAIN-SUFFIX,jegotrip.com.cn'
+  - 'DOMAIN-SUFFIX,icitymobile.mobi'
+  - 'DOMAIN-SUFFIX,10099.com.cn'
+  - 'DOMAIN-SUFFIX,microdone.cn'
+  - 'DOMAIN-SUFFIX,id6.me'
+  - 'DOMAIN-SUFFIX,open.e.189.cn'
+  - 'DOMAIN-SUFFIX,opencloud.wostore.cn'
+  - 'DOMAIN-SUFFIX,id.mail.wo.cn'
+  - 'DOMAIN-SUFFIX,mdn.open.wo.cn'
+  - 'DOMAIN-SUFFIX,hmrz.wo.cn'
+  - 'DOMAIN-SUFFIX,nishub1.10010.com'
+  - 'DOMAIN-SUFFIX,enrichgw.10010.com'
 
-##咪咕音乐
-+.music.migu.cn
-music.migu.cn
+  ## 银行
+  - 'DOMAIN-SUFFIX,pingan.com.cn'
+  - 'DOMAIN-SUFFIX,cmbchina.com'
+  - 'DOMAIN-SUFFIX,cmbimg.com'
 
-## win10本地连接检测
-+.msftconnecttest.com
-+.msftncsi.com
+  ## 音乐
+  - 'DOMAIN-SUFFIX,music.163.com'
+  - 'DOMAIN-SUFFIX,126.net'
+  - 'DOMAIN-SUFFIX,musicapi.taihe.com'
+  - 'DOMAIN-SUFFIX,music.taihe.com'
+  - 'DOMAIN-SUFFIX,songsearch.kugou.com'
+  - 'DOMAIN-SUFFIX,trackercdn.kugou.com'
+  - 'DOMAIN-SUFFIX,kuwo.cn'
+  - 'DOMAIN-SUFFIX,api-jooxtt.sanook.com'
+  - 'DOMAIN-SUFFIX,api.joox.com'
+  - 'DOMAIN-SUFFIX,joox.com'
+  - 'DOMAIN-SUFFIX,y.qq.com'
+  - 'DOMAIN-SUFFIX,qqmusic.qq.com'
+  - 'DOMAIN-SUFFIX,music.tc.qq.com'
+  - 'DOMAIN-SUFFIX,xiami.com'
+  - 'DOMAIN-SUFFIX,music.migu.cn'
 
-## QQ登录
-localhost.ptlogin2.qq.com
-localhost.sec.qq.com
-+.qq.com
-+.tencent.com
+  ## 其他
+  - 'DOMAIN-SUFFIX,qq.com'
+  - 'DOMAIN-SUFFIX,tencent.com'
+  - 'DOMAIN-SUFFIX,mcdn.bilivideo.cn'
+  - 'DOMAIN-SUFFIX,sandai.net'
+  - 'DOMAIN-SUFFIX,n0808.com'
+  - 'DOMAIN-SUFFIX,shark007.net'
 
-#Golang
-proxy.golang.org
-
-## Linksys Router
-heartbeat.belkin.com
-+.linksys.com
-+.linksyssmartwifi.com
-
-#Apple Software Update Service
-mesu.apple.com
-swscan.apple.com
-swquery.apple.com
-swdownload.apple.com
-swcdn.apple.com
-swdist.apple.com
-
-## FinalFantasy XIV Worldwide Server & CN Server
-+.square-enix.com
-+.finalfantasyxiv.com
-+.ffxiv.com
-+.ff14.sdo.com
-ff.dorado.sdo.com
-
-## Bilibili
-+.mcdn.bilivideo.cn
-
-## shark007 Codecs 
-shark007.net
-
-## Mijia
-Mijia Cloud
-
-## 招商银行
-+.cmbchina.com
-+.cmbimg.com
-
-## AdGuard
-local.adguard.org
-
-## 迅雷
-+.sandai.net
-+.n0808.com
-
-## UU Plugin
-+.uu.163.com
-ps.res.netease.com
-
-## Wifi Calling
-+.pub.3gppnetwork.org
-
-## 自定义
-+.uscence.com
-+.sub.okti.xyz
+  # --- 自定义 ---
+  - 'DOMAIN-SUFFIX,uscence.com'
+  - 'DOMAIN-SUFFIX,sub.okti.xyz'
