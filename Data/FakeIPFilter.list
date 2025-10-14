@@ -1,8 +1,7 @@
-
-  # 局域网/特殊服务
+# 局域网/特殊服务
 DOMAIN-SUFFIX,example
 DOMAIN-REGEX,^localhost\..*\.weixin\.qq\.com$
-DOMAIN-SUFFIX,oray.com          # 向日葵远程
+DOMAIN-SUFFIX,oray.com# 向日葵远程
 DOMAIN-SUFFIX,tplinkwifi.net
 DOMAIN-SUFFIX,routerlogin.net
 DOMAIN-SUFFIX,linksys.com
@@ -10,7 +9,7 @@ DOMAIN-SUFFIX,linksyssmartwifi.com
 DOMAIN-SUFFIX,heartbeat.belkin.com
 DOMAIN-SUFFIX,pub.3gppnetwork.org # Wifi Calling
 
-  # --- 智能家居 (Smart Home / IoT) ---
+# --- 智能家居 (Smart Home / IoT) ---
 DOMAIN-SUFFIX,asusrouter.com
 DOMAIN-SUFFIX,synology.com
 DOMAIN-SUFFIX,ecovacs.com
@@ -21,8 +20,8 @@ DOMAIN-SUFFIX,xiaomi.com
 DOMAIN-SUFFIX,mi-ae.com
 DOMAIN-SUFFIX,mi-img.com
 
-  # --- 游戏平台 (Gaming Platforms) ---
-  ## Nintendo
+# --- 游戏平台 (Gaming Platforms) ---
+## Nintendo
 DOMAIN-SUFFIX,nintendo.com
 DOMAIN-SUFFIX,nintendo.net
 DOMAIN-SUFFIX,nintendo.co.jp
@@ -31,26 +30,26 @@ DOMAIN-SUFFIX,cdn.nintendo.net
 DOMAIN-SUFFIX,srv.nintendo.net
 DOMAIN-SUFFIX,n.n.srv.nintendo.net
 
-  ## Blizzard
+## Blizzard
 DOMAIN-SUFFIX,blizzard.com
 DOMAIN-SUFFIX,battle.net
 DOMAIN-SUFFIX,blizzard.net
 DOMAIN-SUFFIX,blizzardcdn.com
 
-  ## Sony PlayStation
+## Sony PlayStation
 DOMAIN-SUFFIX,playstation.com
 DOMAIN-SUFFIX,playstation.net
 DOMAIN-SUFFIX,playstationnetwork.com
 DOMAIN-SUFFIX,sonyentertainmentnetwork.com
 DOMAIN-SUFFIX,stun.playstation.net
 
-  ## Microsoft Xbox
+## Microsoft Xbox
 DOMAIN-SUFFIX,xbox.com
 DOMAIN-SUFFIX,xboxlive.com
 DOMAIN-REGEX,^xbox\..*\.microsoft\.com$
 DOMAIN-SUFFIX,msftauth.net
 
-  ## Steam
+## Steam
 DOMAIN-SUFFIX,steampowered.com
 DOMAIN-SUFFIX,steamcommunity.com
 DOMAIN-SUFFIX,steamgames.com
@@ -58,36 +57,36 @@ DOMAIN-SUFFIX,steamcontent.com
 DOMAIN-SUFFIX,steamstatic.com
 DOMAIN-SUFFIX,akamaihd.net
 
-  ## EA
+## EA
 DOMAIN-SUFFIX,ea.com
 DOMAIN-SUFFIX,origin.com
 
-  ## Ubisoft
+## Ubisoft
 DOMAIN-SUFFIX,ubisoft.com
 DOMAIN-SUFFIX,ubi.com
 
-  ## Epic Games
+## Epic Games
 DOMAIN-SUFFIX,epicgames.com
 DOMAIN-SUFFIX,epicgames.dev
 
-  ## FinalFantasy XIV
+## FinalFantasy XIV
 DOMAIN-SUFFIX,square-enix.com
 DOMAIN-SUFFIX,finalfantasyxiv.com
 DOMAIN-SUFFIX,ffxiv.com
 DOMAIN-SUFFIX,ff14.sdo.com
 DOMAIN-SUFFIX,ff.dorado.sdo.com
 
-  ## UU Plugin
+## UU Plugin
 DOMAIN-SUFFIX,uu.163.com
 DOMAIN-SUFFIX,ps.res.netease.com
 
-  ## Other Games
+## Other Games
 DOMAIN-SUFFIX,teafone.com
 DOMAIN-SUFFIX,sktswe.net
 DOMAIN-SUFFIX,rtc.goodfone.co.kr
 DOMAIN-SUFFIX,chattti.com
 
-  # --- NTP 相关服务 ---
+# --- NTP 相关服务 ---
 DOMAIN-SUFFIX,time.apple.com
 DOMAIN-SUFFIX,time.google.com
 DOMAIN-SUFFIX,time.cloudflare.com
@@ -102,8 +101,8 @@ DOMAIN-SUFFIX,aliyun.com
 DOMAIN-SUFFIX,tencent.com
 DOMAIN-SUFFIX,ntsc.ac.cn
 
-  # --- 操作系统/基础服务 ---
-  ## Apple Software Update
+# --- 操作系统/基础服务 ---
+## Apple Software Update
 DOMAIN-SUFFIX,mesu.apple.com
 DOMAIN-SUFFIX,swscan.apple.com
 DOMAIN-SUFFIX,swquery.apple.com
@@ -111,18 +110,18 @@ DOMAIN-SUFFIX,swdownload.apple.com
 DOMAIN-SUFFIX,swcdn.apple.com
 DOMAIN-SUFFIX,swdist.apple.com
 
-  ## Windows 连接检测
+## Windows 连接检测
 DOMAIN-SUFFIX,msftconnecttest.com
 DOMAIN-SUFFIX,msftncsi.com
 
-  ## Golang
+## Golang
 DOMAIN-SUFFIX,proxy.golang.org
 
-  ## AdGuard
+## AdGuard
 DOMAIN-SUFFIX,local.adguard.org
 
-  # --- 国内常用服务 ---
-  ## 运营商
+# --- 国内常用服务 ---
+## 运营商
 DOMAIN-SUFFIX,cmpassport.com
 DOMAIN-SUFFIX,wosms.cn
 DOMAIN-SUFFIX,jegotrip.com.cn
@@ -138,12 +137,12 @@ DOMAIN-SUFFIX,hmrz.wo.cn
 DOMAIN-SUFFIX,nishub1.10010.com
 DOMAIN-SUFFIX,enrichgw.10010.com
 
-  ## 银行
+## 银行
 DOMAIN-SUFFIX,pingan.com.cn
 DOMAIN-SUFFIX,cmbchina.com
 DOMAIN-SUFFIX,cmbimg.com
 
-  ## 音乐
+## 音乐
 DOMAIN-SUFFIX,music.163.com
 DOMAIN-SUFFIX,126.net
 DOMAIN-SUFFIX,musicapi.taihe.com
@@ -160,7 +159,7 @@ DOMAIN-SUFFIX,music.tc.qq.com
 DOMAIN-SUFFIX,xiami.com
 DOMAIN-SUFFIX,music.migu.cn
 
-  ## 其他
+## 其他
 DOMAIN-SUFFIX,qq.com
 DOMAIN-SUFFIX,tencent.com
 DOMAIN-SUFFIX,mcdn.bilivideo.cn
@@ -168,6 +167,6 @@ DOMAIN-SUFFIX,sandai.net
 DOMAIN-SUFFIX,n0808.com
 DOMAIN-SUFFIX,shark007.net
 
-  # --- 自定义 ---
+# --- 自定义 ---
 DOMAIN-SUFFIX,uscence.com
 DOMAIN-SUFFIX,sub.okti.xyz
