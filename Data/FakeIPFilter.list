@@ -1,0 +1,101 @@
+*.oray.com        # 向日葵远程
+*.tplinkwifi.net
+*.routerlogin.net
+*.asusrouter.com
+*.synology.com
+
+# --- 智能家居 (Smart Home / IoT) ---
+*.ecovacs.com
+*.ecovacs.cn
+*.ecovacs-global.com
+
+# --- 游戏平台 (Gaming Platforms) ---
+## Nintendo
+*.nintendo.com
+*.nintendo.net
+*.nintendo.co.jp
+*.nintendowifi.net
+*.cdn.nintendo.net
+*.srv.nintendo.net
+*.n.n.srv.nintendo.net
+
+## Blizzard
+*.blizzard.com
+*.battle.net
+*.blizzard.net
+*.blizzardcdn.com
+
+## Sony PlayStation
+*.playstation.com
+*.playstation.net
+*.playstationnetwork.com
+*.sonyentertainmentnetwork.com
+*.stun.playstation.net'
+# Microsoft Xbox
+*.xbox.com
+*.xboxlive.com
+- xbox.*.microsoft.com
+*.msftauth.net
+
+## Steam
+*.steampowered.com
+*.steamcommunity.com
+*.steamgames.com
+*.steamcontent.com
+*.steamstatic.com
+*.akamaihd.net
+
+## EA
+*.ea.com
+*.origin.com
+# Ubisoft
+*.ubisoft.com
+*.ubi.com
+# Epic Games
+*.epicgames.com
+*.epicgames.dev
+# Other Games
+*.teafone.com
+*.sktswe.net
+- rtc.goodfone.co.kr
+*.chattti.com
+
+# NTP 相关服务（务必完整声明）
+*.time.apple.com
+*.time.google.com
+*.time.cloudflare.com
+*.ntp.org
+*.pool.ntp.org
+*.openwrt.pool.ntp.org
+- time.*.com
+- time.*.gov
+- time.*.edu.cn
+- time.*.apple.com
+- time-ios.apple.com
+- time1.*.com
+- time2.*.com
+- time3.*.com
+- time4.*.com
+- time5.*.com
+- time6.*.com
+- time7.*.com
+- ntp.*.com
+- ntp1.*.com
+- ntp2.*.com
+- ntp3.*.com
+- ntp4.*.com
+- ntp5.*.com
+- ntp6.*.com
+- ntp7.*.com
+*.time.edu.cn
+*.ntp.org.cn
+- time1.cloud.tencent.com
+
+# 其它
+*.uscence.com
+*.sub.okti.xyz
+*.justmysocks.net
+*.okgg.top
+*.ccgfw.top
+*.okti.xyz
+*.okgfw.top
