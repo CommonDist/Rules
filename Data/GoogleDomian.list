@@ -3,6 +3,12 @@ mail.google.com
 play.google.com
 play.googleapis.com
 ogs.google.com
++.googleapis.com
++.googleusercontent.com
++.google.com
++.gstatic.com
++.googlevideo.com
++.googleusercontent.com
 mtalk.google.com
 www.google.com.hk
 tools.google.com
@@ -52,12 +58,6 @@ lh3.googleusercontent.com
 lh4.googleusercontent.com
 appsgenaiserver-pa.googleapis.com
 ci3.googleusercontent.com
-*.googleapis.com
-*.googleusercontent.com
-*.google.com
-*.gstatic.com
-*.googlevideo.com
-*.googleusercontent.com
 people-pa.googleapis.com
 peoplestack-pa.googleapis.com
 growth-pa.googleapis.com
