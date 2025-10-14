@@ -1,74 +1,77 @@
-*.example
++.example
 localhost.*.weixin.qq.com
-*.oray.com        # 向日葵远程
-*.tplinkwifi.net
-*.routerlogin.net
-*.asusrouter.com
-*.synology.com
++.oray.com        # 向日葵远程
++.tplinkwifi.net
++.routerlogin.net
++.asusrouter.com
++.synology.com
 
 # --- 智能家居 (Smart Home / IoT) ---
-*.ecovacs.com
-*.ecovacs.cn
-*.ecovacs-global.com
++.ecovacs.com
++.ecovacs.cn
++.ecovacs-global.com
 
 # --- 游戏平台 (Gaming Platforms) ---
 ## Nintendo
-*.nintendo.com
-*.nintendo.net
-*.nintendo.co.jp
-*.nintendowifi.net
-*.cdn.nintendo.net
-*.srv.nintendo.net
-*.n.n.srv.nintendo.net
++.nintendo.com
++.nintendo.net
++.nintendo.co.jp
++.nintendowifi.net
++.cdn.nintendo.net
++.srv.nintendo.net
++.n.n.srv.nintendo.net
 
 ## Blizzard
-*.blizzard.com
-*.battle.net
-*.blizzard.net
-*.blizzardcdn.com
++.blizzard.com
++.battle.net
++.blizzard.net
++.blizzardcdn.com
 
 ## Sony PlayStation
-*.playstation.com
-*.playstation.net
-*.playstationnetwork.com
-*.sonyentertainmentnetwork.com
-*.stun.playstation.net'
++.playstation.com
++.playstation.net
++.playstationnetwork.com
++.sonyentertainmentnetwork.com
++.stun.playstation.net
+
 # Microsoft Xbox
-*.xbox.com
-*.xboxlive.com
++.xbox.com
++.xboxlive.com
 - xbox.*.microsoft.com
-*.msftauth.net
++.msftauth.net
 
 ## Steam
-*.steampowered.com
-*.steamcommunity.com
-*.steamgames.com
-*.steamcontent.com
-*.steamstatic.com
-*.akamaihd.net
++.steampowered.com
++.steamcommunity.com
++.steamgames.com
++.steamcontent.com
++.steamstatic.com
++.akamaihd.net
 
 ## EA
-*.ea.com
-*.origin.com
++.ea.com
++.origin.com
+
 # Ubisoft
-*.ubisoft.com
-*.ubi.com
++.ubisoft.com
++.ubi.com
+
 # Epic Games
-*.epicgames.com
-*.epicgames.dev
++.epicgames.com
++.epicgames.dev
 # Other Games
-*.teafone.com
-*.sktswe.net
++.teafone.com
++.sktswe.net
 - rtc.goodfone.co.kr
-*.chattti.com
++.chattti.com
 
 # NTP 相关服务（务必完整声明）
-*.time.apple.com
-*.time.google.com
-*.time.cloudflare.com
-*.ntp.org
-*.pool.ntp.org
-*.openwrt.pool.ntp.org
++.time.apple.com
++.time.google.com
++.time.cloudflare.com
++.ntp.org
++.pool.ntp.org
++.openwrt.pool.ntp.org
 - time.*.com
 - time.*.gov
 - time.*.edu.cn
@@ -89,20 +92,20 @@ localhost.*.weixin.qq.com
 - ntp5.*.com
 - ntp6.*.com
 - ntp7.*.com
-*.time.edu.cn
-*.ntp.org.cn
++.time.edu.cn
++.ntp.org.cn
 - time1.cloud.tencent.com
 
 # 其它
-*.blzstatic.cn
-*.cmpassport.com
-*.wosms.cn
-*.jegotrip.com.cn
-*.icitymobile.mobi
-*.pingan.com.cn
-*.cmbchina.com
-*.10099.com.cn
-*.microdone.cn
++.blzstatic.cn
++.cmpassport.com
++.wosms.cn
++.jegotrip.com.cn
++.icitymobile.mobi
++.pingan.com.cn
++.cmbchina.com
++.10099.com.cn
++.microdone.cn
 id6.me
 open.e.189.cn
 opencloud.wostore.cn
@@ -114,8 +117,8 @@ enrichgw.10010.com
 
 ## 网易云音乐
 music.163.com
-*.music.163.com
-*.126.net
++.music.163.com
++.126.net
 
 ## 百度音乐
 musicapi.taihe.com
@@ -126,7 +129,7 @@ songsearch.kugou.com
 trackercdn.kugou.com
 
 ## 酷我音乐
-*.kuwo.cn
++.kuwo.cn
 
 ## JOOX音乐
 api-jooxtt.sanook.com
@@ -135,7 +138,7 @@ joox.com
 
 ## QQ音乐
 y.qq.com
-*.y.qq.com
++.y.qq.com
 streamoc.music.tc.qq.com
 mobileoc.music.tc.qq.com
 isure.stream.qqmusic.qq.com
@@ -144,10 +147,10 @@ aqqmusic.tc.qq.com
 amobile.music.tc.qq.com
 
 ## 虾米音乐
-*.xiami.com
++.xiami.com
 
 ##咪咕音乐
-*.music.migu.cn
++.music.migu.cn
 music.migu.cn
 
 ## win10本地连接检测
@@ -165,8 +168,8 @@ proxy.golang.org
 
 ## Linksys Router
 heartbeat.belkin.com
-*.linksys.com
-*.linksyssmartwifi.com
++.linksys.com
++.linksyssmartwifi.com
 
 #Apple Software Update Service
 mesu.apple.com
@@ -177,14 +180,14 @@ swcdn.apple.com
 swdist.apple.com
 
 ## FinalFantasy XIV Worldwide Server & CN Server
-*.square-enix.com
-*.finalfantasyxiv.com
-*.ffxiv.com
-*.ff14.sdo.com
++.square-enix.com
++.finalfantasyxiv.com
++.ffxiv.com
++.ff14.sdo.com
 ff.dorado.sdo.com
 
 ## Bilibili
-*.mcdn.bilivideo.cn
++.mcdn.bilivideo.cn
 
 ## shark007 Codecs 
 shark007.net
@@ -211,10 +214,5 @@ ps.res.netease.com
 +.pub.3gppnetwork.org
 
 ## 自定义
-*.uscence.com
-*.sub.okti.xyz
-*.justmysocks.net
-*.okgg.top
-*.ccgfw.top
-*.okti.xyz
-*.okgfw.top
++.uscence.com
++.sub.okti.xyz
