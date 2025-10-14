@@ -1,10 +1,15 @@
 youtube.com
+*.youtube.com
 www.youtube.com
 m.youtube.com
 youtube-nocookie.com
 youtu.be
 yt.be
 ytimg.com
+*.ytimg.com
+yt3.ggpht.com
+*.ggpht.com
+accounts.youtube.com
 youtubeeducation.com
 youtubefanfest.com
 youtubegaming.com
@@ -18,6 +23,9 @@ youtubei.googleapis.com
 youtubekids.com
 youtubemobilesupport.com
 withyoutube.com
+yt3.googleusercontent.com
+i1.ytimg.com
+i9.ytimg.com
 
 ## YouTube 广告与隐私/合规
 fundingchoicesmessages.google.com
