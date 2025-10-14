@@ -11,6 +11,7 @@ api.anthropic.com
 a-cdn.anthropic.com
 claudeusercontent.com
 +.claudeusercontent.com
+servd-anthropic-website.b-cdn.net
 
 ## > OpenAI
 openai.com
