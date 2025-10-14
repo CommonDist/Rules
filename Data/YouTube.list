@@ -6,9 +6,9 @@ youtube-nocookie.com
 youtu.be
 yt.be
 ytimg.com
-*.ytimg.com
++.ytimg.com
 yt3.ggpht.com
-*.ggpht.com
++.ggpht.com
 accounts.youtube.com
 youtubeeducation.com
 youtubefanfest.com
@@ -31,12 +31,10 @@ i9.ytimg.com
 fundingchoicesmessages.google.com
 g.doubleclick.net
 googleads.g.doubleclick.net
-pagead2.googlesyndication.com
 googlesyndication.com
 adservice.google.com
 
 ## Google 视频缓存 / CDN
-googlevideo.com
 gvt2.com
 ggpht.com
 ggpht.cn
