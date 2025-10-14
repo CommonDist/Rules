@@ -1,0 +1,244 @@
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  ipv6: false
+  use-hosts: true
+  enhanced-mode: fake-ip           # fake-ip 模式，杜绝 DNS 泄露
+  fake-ip-range: 198.18.0.1/16     # fake-ip 分配范围
+  fakedns-fallback: true
+
+  nameserver:
+    - tls://dns.adguard-dns.com:853
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+
+  fallback:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - tls://223.5.5.5:853
+
+  # Fake-IP 过滤器，避免局域网、保留地址被 fake-ip 解析
+  fake-ip-filter:
+    # --- 局域网 & 路由器 (LAN & Routers) ---
+    - '*.lan'
+    - '*.local'
+    - '*.localhost'
+    - 'WORKGROUP'
+    - 'miwifi.com'
+    - 'router.asus.com'
+    - 'asusrouter.com'
+    - 'tplinkwifi.net'
+    - 'routerlogin.net'
+    - 'linksys.com'
+    - 'linksyssmartwifi.com'
+    - 'heartbeat.belkin.com'
+    - 'local.adguard.org'
+    - 'synology.com'
+
+    # --- 基础 & 操作系统服务 (Basic & OS Services) ---
+    - 'msftconnecttest.com'
+    - 'msftncsi.com'
+    - '*.msftncsi.com'
+    - 'ipv6.msftncsi.com'
+    - 'speed.cloudflare.com'
+    - 'speed.cloudflarestable.com'
+    - 'proxy.golang.org'
+    - 'pub.3gppnetwork.org' # Wifi Calling
+
+    # --- Microsoft & Windows Update ---
+    - 'windowsupdate.com'
+    - '*.windowsupdate.com'
+    - 'update.microsoft.com'
+    - '*.update.microsoft.com'
+    - 'tlu.dl.delivery.mp.microsoft.com'
+    - '*.dl.delivery.mp.microsoft.com'
+    - 'c-tlu.dl.delivery.mp.microsoft.com'
+    - 'login.live.com'
+    - 'login.microsoftonline.com'
+    - 'login.microsoftonline.cn'
+    - 'account.microsoft.com'
+    - 'account.live.com'
+    - 'family.microsoft.com'
+    - 'g.live.com'
+    - 'go.microsoft.com'
+    - 'office.com'
+    - 'office.live.com'
+    - 'outlook.com'
+    - 'outlook.live.com'
+    - 'onedrive.com'
+    - 'onedrive.live.com'
+    - 'oneclient.sfx.ms'
+    - 'g.live.com.nsatc.net'
+    - 'skydrive.wns.windows.com'
+    - 'mobile.pipe.aria.microsoft.com'
+    - '*.msn.cn'
+    - '*.msn.com'
+    - '*.bing.com'
+
+    # --- Apple Services ---
+    - 'mesu.apple.com'
+    - 'swscan.apple.com'
+    - 'swquery.apple.com'
+    - 'swdownload.apple.com'
+    - 'swcdn.apple.com'
+    - 'swdist.apple.com'
+
+    # --- NTP (时间同步) ---
+    - 'time.asia.apple.com'
+    - 'time.apple.com'
+    - 'time.google.com'
+    - 'time.cloudflare.com'
+    - 'time.windows.com'
+    - 'ntp.aliyun.com'
+    - 'ntp.tencent.com'
+    - 'ntp.ntsc.ac.cn'
+    - 'time.edu.cn'
+    - 'ntp.org.cn'
+    - 'cn.ntp.org.cn'
+    - 'cn.pool.ntp.org'
+    - 'pool.ntp.org'
+    - 'openwrt.pool.ntp.org'
+    - 'ntp.ubuntu.com'
+    - 'time1.cloud.tencent.com'
+    - 'time.ustc.edu.cn'
+    - 'ntp.tuna.tsinghua.edu.cn'
+    - 'ntp.sjtu.edu.cn'
+    - 'ntp.org'
+
+    # --- 智能家居 (Smart Home / IoT) ---
+    - 'Mijia Cloud'
+    - 'dlg.io.mi.com'
+    - '*.mi.com'
+    - '*.xiaomi.com'
+    - '*.mi-ae.com'
+    - '*.mi-img.com'
+    - 'ecovacs.com'
+    - 'ecovacs.cn'
+    - 'ecovacs-global.com'
+
+    # --- 游戏平台 (Gaming Platforms) ---
+    ## STUN Services
+    - 'stun.l.google.com'
+    - 'stun.qq.com'
+    - 'stun.syncthing.net'
+    - 'stun.miwifi.com'
+    - 'stun.playstation.net'
+
+    ## Nintendo
+    - '*.nintendo.com'
+    - '*.nintendo.net'
+    - '*.nintendo.co.jp'
+    - '*.nintendowifi.net'
+    - '*.cdn.nintendo.net'
+    - '*.srv.nintendo.net'
+    - '*.n.n.srv.nintendo.net'
+
+    ## Blizzard
+    - '*.blizzard.com'
+    - '*.battle.net'
+    - '*.blizzard.net'
+    - '*.blizzardcdn.com'
+
+    ## Sony PlayStation
+    - '*.playstation.com'
+    - '*.playstation.net'
+    - '*.playstationnetwork.com'
+    - '*.sonyentertainmentnetwork.com'
+
+    ## Microsoft Xbox
+    - '*.xbox.com'
+    - '*.xboxlive.com'
+    - '*.msftauth.net'
+
+    ## Steam
+    - '*.steampowered.com'
+    - '*.steamcommunity.com'
+    - '*.steamgames.com'
+    - '*.steamcontent.com'
+    - '*.steamstatic.com'
+    - '*.akamaihd.net'
+
+    ## Other Platforms
+    - '*.ea.com'
+    - '*.origin.com'
+    - '*.ubisoft.com'
+    - '*.ubi.com'
+    - '*.epicgames.com'
+    - '*.epicgames.dev'
+    - '*.square-enix.com'
+    - '*.finalfantasyxiv.com'
+    - '*.ffxiv.com'
+    - '*.ff14.sdo.com'
+    - '*.ff.dorado.sdo.com'
+    - '*.uu.163.com'
+    - '*.ps.res.netease.com'
+    - '*.teafone.com'
+    - '*.sktswe.net'
+    - '*.rtc.goodfone.co.kr'
+    - '*.chattti.com'
+
+    # --- 国内服务 (Domestic Services) ---
+    ## DNS
+    - 'dns.alidns.com'
+    - 'doh.pub'
+    - 'doh.360.cn'
+    - 'dns.twnic.tw'
+
+    ## 运营商
+    - '*.cmpassport.com'
+    - '*.wosms.cn'
+    - '*.jegotrip.com.cn'
+    - '*.icitymobile.mobi'
+    - '*.10099.com.cn'
+    - '*.microdone.cn'
+    - '*.id6.me'
+    - '*.open.e.189.cn'
+    - '*.opencloud.wostore.cn'
+    - '*.id.mail.wo.cn'
+    - '*.mdn.open.wo.cn'
+    - '*.hmrz.wo.cn'
+    - '*.nishub1.10010.com'
+    - '*.enrichgw.10010.com'
+
+    ## 银行
+    - '*.pingan.com.cn'
+    - '*.cmbchina.com'
+    - '*.cmbimg.com'
+
+    ## 音乐
+    - '*.music.163.com'
+    - '*.126.net'
+    - '*.musicapi.taihe.com'
+    - '*.music.taihe.com'
+    - '*.songsearch.kugou.com'
+    - '*.trackercdn.kugou.com'
+    - '*.kuwo.cn'
+    - '*.api-jooxtt.sanook.com'
+    - '*.api.joox.com'
+    - '*.joox.com'
+    - '*.y.qq.com'
+    - '*.qqmusic.qq.com'
+    - '*.music.tc.qq.com'
+    - '*.xiami.com'
+    - '*.music.migu.cn'
+    
+    ## 其他
+    - '*.aliyun.com'
+    - '*.qq.com'
+    - '*.tencent.com'
+    - '*.mcdn.bilivideo.cn'
+    - '*.sandai.net'
+    - '*.n0808.com'
+    - '*.shark007.net'
+
+  fallback-filter:
+    geoip: true       # 将 geoip:cn 的 IP 段加入判断
+    geoip-code: CN    # 国家代码为 CN
+    ipcidr:           # 手动指定一些国内 IP 段
+      - 223.5.5.5/32
+    domain:           # 匹配这些列表中的域名
+      - '+.cn'
+      - '+.mi.com'
+      - '+.qq.com'
+      - 'geosite:cn'
+      - 'geosite:private'
