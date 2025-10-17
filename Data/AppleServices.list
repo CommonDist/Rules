@@ -2,8 +2,6 @@
 +.push.apple.com
 configuration.ls.apple.com
 fpinit.itunes.apple.com
-gateway.fe2.apple-dns.net
-gateway.icloud.com
 gdmf.apple.com
 gsas.apple.com
 gspe79-ssl.ls.apple.com
@@ -13,6 +11,5 @@ pds.ess.apple.com
 pds-init.ess.apple.com
 setup.icloud.com
 fpinit.itunes.apple.com
-gateway.icloud.com
 configuration.ls.apple.com
 gspe79-ssl.ls.apple.com
