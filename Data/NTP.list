@@ -63,6 +63,12 @@ time-macos.apple.com
 time-ios.apple.com
 time.g.aaplimg.com
 time-ios.g.aaplimg.com
+comm-main.ess.apple.com
+configuration.ls.apple.com
+fpinit.itunes.apple.com
+gdmf.apple.com
+mask-h2.icloud.com
+iadsdk.apple.com
 
 # Google
 time.google.com
@@ -71,9 +77,11 @@ time2.google.com
 time3.google.com
 time4.google.com
 time.android.com
+stun.l.google.com
 
 # Microsoft
 time.windows.com
+skydrive.wns.windows.com
 
 # Amazon
 time.aws.com
@@ -183,3 +191,4 @@ ntp.shoa.cl
 ntp.nic.cz
 ptbtime1.ptb.de
 ptbtime2.ptb.de
+stun.services.mozilla.com
