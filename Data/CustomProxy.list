@@ -25,6 +25,7 @@ wapi.aitdk.com
 lp-push-server-1105.lastpass.com #莫名被墙
 gateway.fe2.apple-dns.net
 lp-push-server-1105.lastpass.com
+stun.services.mozilla.com
 
 # Google
- stun.l.google.com
+stun.l.google.com
