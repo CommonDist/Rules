@@ -27,5 +27,8 @@ gateway.fe2.apple-dns.net
 lp-push-server-1105.lastpass.com
 stun.services.mozilla.com
 
+# apple
+comm-main.ess.apple.com
+
 # Google
 stun.l.google.com
