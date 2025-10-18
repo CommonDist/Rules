@@ -192,3 +192,10 @@ ntp.nic.cz
 ptbtime1.ptb.de
 ptbtime2.ptb.de
 stun.services.mozilla.com
+
+# New
+asia.pool.ntp.org
+sg.pool.ntp.org
+ntp.nasa.gov
+aa.online-metrix.net
+stun.voipstunt.com
