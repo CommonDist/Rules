@@ -10,7 +10,8 @@
 # Apple
 mask.apple-dns.net
 mask-h2.icloud.com
-push.apple.com
++.push.apple.com
+gateway.icloud.com
 
 # > Common Public Pool
 pool.ntp.org
