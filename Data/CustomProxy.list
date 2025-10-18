@@ -29,6 +29,7 @@ stun.services.mozilla.com
 
 # apple
 comm-main.ess.apple.com
++.icloud.com
 
 # Google
 stun.l.google.com
