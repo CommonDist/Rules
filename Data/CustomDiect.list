@@ -48,6 +48,9 @@ rss.ccgfw.top
 
 # Microsoft
 
+# Cloudflare
++.cloudflare.com
+
 # joplin
 joplinapp.org
 +.joplinapp.org
