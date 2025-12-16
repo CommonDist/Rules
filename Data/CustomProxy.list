@@ -35,7 +35,7 @@ wapi.aitdk.com
 gateway.fe2.apple-dns.net
 stun.services.mozilla.com
 
-# apple
+# Apple
 comm-main.ess.apple.com
 p170-contacts.icloud.com
 
@@ -51,3 +51,7 @@ catdomepimyth.com
 gszyi.com
 gs.gszyi.com
 +.gszyi.com
+
+# Microsfot
++.msftconnecttest.com
++.msftncsi.com
