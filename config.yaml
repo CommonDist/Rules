@@ -72,26 +72,22 @@ dns:
 
   # 全局默认 DNS（未匹配规则域名走这里）
   nameserver:
-    - https://doh.pub/dns-query            # 腾讯 DoH，国内首选，响应快
-    - https://dns.alidns.com/dns-query     # 阿里 DoH，国内备用
-    - https://doh.opendns.com/dns-query    # OpenDNS DoH
-    - https://dns.google/dns-query         # Google DoH，国际解析可靠
-    - https://cloudflare-dns.com/dns-query # Cloudflare DoH，国际解析高隐私
-    - https://dns.quad9.net/dns-query      # Quad9 DoH，国际安全容错
-    - https://[2606:4700:4700::1111]/dns-query
-    - https://[2001:4860:4860::8888]/dns-query
+    - https://doh.opendns.com/dns-query     # OpenDNS DoH
+    - https://dns.google/dns-query          # Google DoH，国际解析可靠
+    - https://cloudflare-dns.com/dns-query  # Cloudflare DoH，国际解析高隐私
+    - https://dns.quad9.net/dns-query       # Quad9 DoH，国际安全容错
 
   # 精准域名分流策略
   nameserver-policy:
     # 国内域名分流
     'geosite:cn':
-      - https://dns.alidns.com/dns-query  # 阿里 DoH，高速稳定
-      - https://doh.pub/dns-query         # 腾讯 DoH，国内优化
+      - https://dns.alidns.com/dns-query   # 阿里 DoH，高速稳定
+      - https://doh.pub/dns-query          # 腾讯 DoH，国内优化
 
       # DoT (DNS over TLS) 
-      - tls://223.5.5.5:853               # 阿里 DoT IPv4，备用明文阻断 ISP 劫持
-      - tls://223.6.6.6:853               # 阿里 DoT 备用
-      - tls://dot.pub:853                 # 腾讯 DoH
+      - tls://223.5.5.5:853                # 阿里 DoT IPv4，备用明文阻断 ISP 劫持
+      - tls://223.6.6.6:853                # 阿里 DoT 备用
+      - tls://dot.pub:853                  # 腾讯 DoH
 
     # 国外域名分流（显式声明，提升配置清晰度，可扩展）
     'geosite:geolocation-!cn':
@@ -100,38 +96,11 @@ dns:
       - https://cloudflare-dns.com/dns-query # Cloudflare DoH
       - https://dns.quad9.net/dns-query      # Quad9 DoH，安全容错
 
-    # -----------------------
-    # NTP / 时间服务器（强制直连域名专用解析）
-    # -----------------------
-    'time.apple.com': 
-      - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
-
-    '*.time.apple.com': 
-      - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
-
-    'time.google.com': 
-      - https://dns.google/dns-query
-      - https://dns.quad9.net/dns-query
-
-    '*.ntp.org': 
-      - https://dns.alidns.com/dns-query
-      - https://dns.google/dns-query
-
-    '*.pool.ntp.org': 
-      - https://dns.alidns.com/dns-query
-      - https://dns.google/dns-query
-
-    'time.cloudflare.com': 
-      - https://cloudflare-dns.com/dns-query
-
   # Fake-IP 过滤器，避免局域网、保留地址被 fake-ip 解析
   fake-ip-filter:
     - '*.lan'             # 局域网域名
     - '*.local'           # 本地网络
     - '*.localhost'       # 本地主机
-    - '*.miwifi.com'      # 小米路由
     - '*.oray.com'        # 向日葵远程
     - '*.tplinkwifi.net'
     - '*.routerlogin.net'
@@ -207,8 +176,7 @@ sniffer:
     - '*.time.apple.com'
     - '*.time.google.com'
     - '*.time.cloudflare.com'
-
-  parse-pure-ip: false                 # 纯 IP 流量解析
+  parse-pure-ip: true                  # 纯 IP 流量解析
 
 profile:
   store-selected: true
@@ -247,8 +215,6 @@ proxy-groups:
       - "🇺🇸 美国"
       - "🇳🇱 荷兰"
       - "🇯🇵 日本"
-      - "🇭🇰 香港"
-      - "🇸🇬 新加坡"
 
   - name: "♻️ 自动选择"
     type: url-test
@@ -321,7 +287,7 @@ proxy-groups:
 
   - name: NTP
     type: select
-    proxies: [DIRECT, "🚀 PROXY", "♻️ 自动选择"]
+    proxies: ["🚀 PROXY", "♻️ 自动选择", DIRECT]
 
   - name: AI
     type: select
